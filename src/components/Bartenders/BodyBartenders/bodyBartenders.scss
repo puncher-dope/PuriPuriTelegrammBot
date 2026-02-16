@@ -1,0 +1,150 @@
+@use '../../../../variables';
+.body {
+  box-sizing: border-box;
+  width: 100%;
+  border: 2px double #c0a080;
+  margin: 0 0 5% 0;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: variables.$primary-body-color;
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.1);
+  position: relative;
+
+  &::before {
+    content: "⚘";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f0e6d2;
+    padding: 0 20px;
+    font-size: 20px;
+    color: #8b4513;
+  }
+
+  h1 {
+    color: variables.$primary-text-color;
+    margin: 0 0 10px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border-bottom: 2px dashed #c0a080;
+    padding-bottom: 5px;
+    display: inline-block;
+  }
+}
+
+.or{
+    margin: 5px 0;
+    color: #4d2311;
+    font-weight: normal;
+}
+
+.body_cards {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  position: relative;
+
+  &::before {
+    content: "✧ ✦ ✧";
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #c0a080;
+    font-size: 20px;
+    letter-spacing: 10px;
+  }
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  margin: 10px 0;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: variables.$primary-text-color;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+  position: relative;
+
+  &::after {
+    content: "⸻";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #c0a080;
+  }
+}
+
+#searchDrink {
+  width: 100%;
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: variables.$primary-text-color;
+  background-color: #fff2d7;
+  border: 2px solid #c0a080;
+  outline: none;
+  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+
+  &:focus {
+    background-color: #ffffff;
+    border-color: #8b4513;
+    box-shadow: 7px 7px 0px rgba(139, 69, 19, 0.2);
+  }
+
+  &::placeholder {
+    color: variables.$primary-text-color;
+    font-style: italic;
+  }
+}
+
+#categories {
+  width: 260px;
+  padding: 12px 18px;
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  font-weight: bold;
+  color: #2c1810;
+  background-color: #fef7e9;
+  border: 3px double #c0a080;
+  border-radius: 0;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23663300' stroke-width='3'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  margin-bottom: 20px;
+}
+
+#categories:hover {
+  background-color: #fff2d7;
+  border-color: #8b6b4d;
+  box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.1);
+}
+
+#categories option {
+  background: #fef7e9;
+  font-family: 'Courier New', monospace;
+  padding: 10px;
+}

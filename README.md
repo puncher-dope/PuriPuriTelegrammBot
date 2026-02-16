@@ -71,3 +71,32 @@ export default defineConfig([
   },
 ])
 ```
+
+
+
+//сигнатура карточки напитка для официанта
+
+cardForWaiter = {
+  id:1,
+  name:"Бабл-гам матча",
+  category: "cofee",
+  structure: "Розовая матча, сироп бабл гам, классическое молоко, лёд",
+  comment: "Розовая матча-это 100% натуральная сублимированная пудра питахайи родом из Коста-Рики",
+  description: "Нежный напиток, сочетающий в себе терпкость розовой матчи и легкую сладость сиропа бабл гам."
+}
+
+
+//сигнатура карточки напитка для бармена
+
+cardForBartender = {
+  id:1,
+  name:"Лимонад "Цитрусовый" 250мл",
+  category: "limonade",
+  structure: [
+    {nameStructure: "Премикс "Цитрусовый" п/ф", unit: "мл", count: "80",},
+    {nameStructure: "Вода газированная", unit: "мл", count: "80",},
+    {nameStructure: "Лимон", unit: "гр", count: "80",},
+    {nameStructure: "Лайм ", unit: "гр", count: "80",},
+    {nameStructure: "Апельсин  ", unit: "гр", count: "80",},
+    ]
+}

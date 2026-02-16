@@ -1,11 +1,12 @@
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: light;
+  color: #2c1810;
+  background-color: #a09c92;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,56 +14,54 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+* {
+  box-sizing: border-box;
+  color: ;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+html {
+  max-width: 1900px;
+  text-align: center; 
+  margin: 0 auto;
+  background-color: #8b6b4d;
+  background-image: repeating-linear-gradient(45deg, #a78a6b 0px, #a78a6b 2px, #8b6b4d 2px, #8b6b4d 8px);
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f0e6d2;
+  border: 8px double #c0a080;
+  box-shadow: 15px 15px 0px rgba(0, 0, 0, 0.2);
+  padding: 20px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+a {
+  font-weight: bold;
+  color: #8b4513;
+  text-decoration: none;
+  border-bottom: 2px dotted #c0a080;
+  padding: 2px 4px;
+  transition: all 0.2s;
+}
+
+a:hover {
+  color: #5a2e0c;
+  border-bottom: 2px solid #8b4513;
+  background-color: #fef7e9;
+}
+
+button, input, select, textarea {
+  font-family: 'Courier New', Courier, monospace;
 }
