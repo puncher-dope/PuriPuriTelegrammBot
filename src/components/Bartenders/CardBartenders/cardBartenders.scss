@@ -47,11 +47,23 @@
   }
 
   p {
-    color: #5a3a22;
+    color: #000000;
     line-height: 1;
     font-size: 1rem;
     text-align: left;
     padding: 0 px;
     font-style: italic;
   }
+  
+  blockquote{
+    padding: 0;
+    margin: 10px 0;
+    font-size: 0.8em;
+    font-weight: 800;
+    border: 1px dashed black;
+    background-color:#c19c80;
+    color: black;
+    z-index: 1;
+  }
+
 }

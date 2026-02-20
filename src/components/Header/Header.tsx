@@ -7,7 +7,7 @@ const Header = () => {
     <div className="header">
         <h1>Admin Panel</h1>
         <Link to={'/'}>Официанты</Link>
-        <Link to={'/waiters'}>Бармены</Link>
+        <Link to={'/bartenders'}>Бармены</Link>
     </div>
   )
 }

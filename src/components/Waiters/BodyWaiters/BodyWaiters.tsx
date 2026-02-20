@@ -1,59 +1,71 @@
 import CardWaiters from "@/components/Waiters/CardWaiters/CardWaiters";
 import "./bodyWaiters.scss";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { request } from "@/utils/req";
-export type CardsForWaiters = {
-  id: string;
-  name: string;
-  category: string;
-  structure: string;
-  comment: string;
-  description: string;
-};
+import type { CardsForWaiters, CardT } from "@/types/cardT";
+import TopLevelBody from "@/components/topLevelBody/TopLevelBody";
 
-const waiters = 'http://localhost:3000/cardsForWaiter'
+const waiters = "http://localhost:3000/cards";
 
 const BodyWaiters = () => {
-  const [cards, setCards] = useState<CardsForWaiters[] | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [cardsWaiters, setCardsWaiters] = useState<CardsForWaiters[] | null>(
+    null,
+  );
 
   useEffect(() => {
-    const data = request<CardsForWaiters>(waiters);
-    data.then(res => setCards(res))
-    // console.log(data);
+    const data = request<CardT>(waiters);
+    data.then((res) => {
+      const { menuWaiters } = res;
+      setCardsWaiters(menuWaiters);
+    });
   }, []);
+
+  const handleChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCategory(e.target.value);
+    
+  };
+  const handleSearchQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value)
+    setSelectedCategory('');
+  }
+
+
+  const filteredDrinks = cardsWaiters?.filter((drink) => {
+      const matchCategory = selectedCategory === '' || drink.category === selectedCategory;
+      const matchSearch = drink.name.toLowerCase().includes(searchQuery.trim().toLowerCase()) ||
+                          drink.structure.toLowerCase().includes(searchQuery.trim().toLowerCase())
+
+      return matchCategory && matchSearch
+    });
 
   return (
     <>
       <div className="body">
-        <h1>НАПИТКИ</h1>
-
-        <label htmlFor="searchDrink">
-          НАЙДИ НАПИТОК
-          <input id="searchDrink" placeholder="Начните поиск..." type="text" />
-          <span className="or">или</span>
-        </label>
-
-        <label htmlFor="categories">ВЫБЕРИ КАТЕГОРИЮ</label>
-
-        <select name="categories" id="categories">
-          <option value="">-- Выберите категорию --</option>
-          <option value="vine">🍷 Вино</option>
-          <option value="vodka">🥃 Водка</option>
-          <option value="cognac">🥃 Коньяк</option>
-          <option value="wisky">🥃 Виски</option>
-          <option value="coffee">☕ Кофе</option>
-        </select>
+        <TopLevelBody
+        searchQuery={searchQuery}
+        handleSearchQuery={handleSearchQuery}
+        selectedCategory={selectedCategory}
+        handleChangeCategory={handleChangeCategory}
+        />
 
         <div className="body_cards">
-          {cards && cards.map((item) => (
-            <CardWaiters key={item.id} 
-            name={item.name}
-            category={item.category}
-            structure={item.structure}
-            comment={item.comment}
-            description={item.description}
-            />
-          ))}
+          <button>Добавить напиток</button>
+          {filteredDrinks && filteredDrinks?.length > 0 ?
+            filteredDrinks.map((item) => (
+              <CardWaiters
+                key={item.id}
+                name={item.name}
+                volume={item.volume}
+                category={item.category}
+                structure={item.structure}
+                comment={item.comment}
+                description={item.description}
+              />
+            )) : 
+            <p>Ничего не найдено</p>
+          }
         </div>
       </div>
     </>

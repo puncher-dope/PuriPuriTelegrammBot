@@ -1,2 +1,18 @@
 $primary-body-color: #796c54;
 $primary-text-color: #4d2311;
+button {
+    padding: 2px 4px;
+    margin: 0 5px;
+    border: 2px dotted #5a3a22;
+    background-color: #fff2d7;
+    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+    font-size: 1rem;
+
+    &:hover {
+      border: 2px solid #8b4513;
+      background-color: #ffffff;
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0px rgba(139, 69, 19, 0.2);
+    }
+  }
