@@ -32,7 +32,7 @@ const TopLevelBody = ({searchQuery, handleSearchQuery, selectedCategory, handleC
         onChange={handleChangeCategory}
       >
         <option value="">-- Все категории --</option>
-        <option value="vine">🍷 Вино</option>
+        <option value="wine">🍷 Вино</option>
         <option value="vodka">🥃 Водка</option>
         <option value="cognac">🥃 Коньяк</option>
         <option value="wisky">🥃 Виски</option>
