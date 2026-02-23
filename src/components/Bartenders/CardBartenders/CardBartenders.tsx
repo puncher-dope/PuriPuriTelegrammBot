@@ -1,27 +1,53 @@
+import { useState } from 'react'
 import './cardBartenders.scss'
 import type { CardsForBartenders } from '@/types/cardT'
+import FormAddDrinksBartenders from '@/components/Forms/FormAddDrinksBartenders/FormAddDrinksBartenders'
 
-const CardBartenders = ({name, category, structure, technology, volume, dishes}: Omit<CardsForBartenders, 'id'>) => {
-  
+type CardsForBartendersProps = {
+  drink: CardsForBartenders
+}
+
+
+
+const CardBartenders = ({drink}: CardsForBartendersProps) => {
+  const [isEditing, setIsEditing] = useState(false)
+
+  const handleEditClick = () => {
+    setIsEditing(true)
+  }
+
+  const handleCancel = () => {
+    setIsEditing(false)
+  }
+
+  if(isEditing){
+    return (
+      <div className='card editing-mode'>
+        <FormAddDrinksBartenders setActive={handleCancel} initialData={drink}/>
+      </div>
+    )
+  }
+
+
   return (
     <>
     <div className="card">
-        <h2>{name}</h2>
-        <p><b>Категория:</b> {category}</p>
-        <p><b>Объём:</b> {volume}</p>
-        <p><b>Отдача:</b> {dishes}</p>
-        {structure.map(({nameStructure, unit, count}, index) => (
+        <h2>{drink.name}</h2>
+        <p><b>Категория:</b> {drink.category}</p>
+        <p><b>Объём:</b> {drink.volume}</p>
+        <p><b>Отдача:</b> {drink.dishes}</p>
+        {drink.structure.map(({nameStructure, unit, count}, index) => (
             <div key={index}>
                 <p><b>{nameStructure}</b>  {`${count} ${unit}`}</p>
             </div>))}
         <div></div>
 
-        {technology &&
-         <blockquote>{technology}</blockquote>
+        {drink.technology &&
+         <blockquote>{drink.technology}</blockquote>
         }
 
         <button>Удалить</button>
-        <button>Изменить</button>
+        <button onClick={handleEditClick}>Изменить</button>
     </div>
 
     </>

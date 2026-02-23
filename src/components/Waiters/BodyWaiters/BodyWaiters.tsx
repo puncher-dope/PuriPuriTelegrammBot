@@ -5,7 +5,7 @@ import { request } from "@/utils/req";
 import type { CardsForWaiters } from "@/types/cardT";
 import TopLevelBody from "@/components/topLevelBody/TopLevelBody";
 import FormAddDrinksWaiters from "@/components/Forms/FormAddDrinksWaiters/FormAddDrinksWaiters";
-import { useDrinkForm } from "@/components/lib/hooks/useDrinkForm";
+import { useDrinkForm } from "@/lib/hooks/useDrinkForm";
 
 const waiters = "http://localhost:3000/menuWaiters";
 
@@ -30,7 +30,7 @@ const BodyWaiters = () => {
     setSelectedCategory('');
   }
 
-  const {openForCreate, isFormOpen, close, editingDrink} = useDrinkForm()
+  const {openForCreate, isFormOpen, close, editingDrink} = useDrinkForm<CardsForWaiters>()
 
   const filteredDrinks = cardsWaiters?.filter((drink) => {
     const matchCategory = selectedCategory === '' || drink.category === selectedCategory;

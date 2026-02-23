@@ -3,13 +3,13 @@ import { request } from "@/utils/req";
 import CardBartenders from "../CardBartenders/CardBartenders";
 import type { CardsForBartenders } from "@/types/cardT";
 import TopLevelBody from "@/components/topLevelBody/TopLevelBody";
+import { useDrinkForm } from "@/lib/hooks/useDrinkForm";
+import FormAddDrinksBartenders from "@/components/Forms/FormAddDrinksBartenders/FormAddDrinksBartenders";
 
 const bartenders = "http://localhost:3000/menuBartenders";
 
 const BodyBartenders = () => {
-  const [cardsBartenders, setCardsBartenders] = useState<
-    CardsForBartenders[] | null
-  >(null);
+  const [cardsBartenders, setCardsBartenders] = useState< CardsForBartenders[] | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
@@ -27,6 +27,8 @@ const BodyBartenders = () => {
   const handleChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(e.target.value);
   };
+
+  const {openForCreate, isFormOpen, close, editingDrink} = useDrinkForm<CardsForBartenders>()
 
   const filteredDrinks = cardsBartenders?.filter((drink) => {
     const categoryMatch =
@@ -51,17 +53,19 @@ const BodyBartenders = () => {
         />
 
         <div className="body_cards">
-          <button>Добавить напиток</button>
+          <button onClick={openForCreate}>➕ Добавить напиток</button>
+
+          {isFormOpen && 
+          <div className="active">
+            <FormAddDrinksBartenders setActive={close} initialData={editingDrink}/>
+          </div>
+          }
+
           {filteredDrinks && filteredDrinks.length > 0 ?
-            filteredDrinks.map((item) => (
+            filteredDrinks.map((drink) => (
               <CardBartenders
-                key={item.id}
-                dishes={item.dishes}
-                volume={item.volume}
-                category={item.category}
-                name={item.name}
-                structure={item.structure}
-                technology={item.technology}
+                key={drink.id}
+                drink={drink}
               />
             )):
             <p>Ничего не найдено</p>

@@ -1,16 +1,16 @@
-import type { CardsForWaiters } from "@/types/cardT"
+// import type { CardsForWaiters } from "@/types/cardT"
 import { useState } from "react"
 
-export const useDrinkForm = () => {
+export const useDrinkForm = <T>() => {
     const [isFormOpen, setIsFormOpen] = useState(false)
-    const [editingDrink, setEditingDrink] = useState<CardsForWaiters | null>(null)
+    const [editingDrink, setEditingDrink] = useState<T | null>(null)
 
     const openForCreate = () => {
         setEditingDrink(null)
         setIsFormOpen(true)
     }
 
-    const openForEdit = (drink: CardsForWaiters) => {
+    const openForEdit = (drink: T) => {
         setEditingDrink(drink)
         setIsFormOpen(true)
     }

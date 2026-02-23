@@ -27,7 +27,7 @@ const FormAddDrinksWaiters = ({ setActive, initialData }: FormAddDrinksWaitersT)
   })
 
   const onSubmit = (data: DrinksWaitersData) => {
-    console.log('Data Form:', data)
+
     setActive(prev => !prev)
   }
 
