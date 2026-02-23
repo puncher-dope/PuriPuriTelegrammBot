@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { request } from "@/utils/req";
 import CardBartenders from "../CardBartenders/CardBartenders";
-import type { CardsForBartenders, CardT } from "@/types/cardT";
+import type { CardsForBartenders } from "@/types/cardT";
 import TopLevelBody from "@/components/topLevelBody/TopLevelBody";
 
-const bartenders = "http://localhost:3000/cards";
+const bartenders = "http://localhost:3000/menuBartenders";
 
 const BodyBartenders = () => {
   const [cardsBartenders, setCardsBartenders] = useState<
@@ -14,10 +14,9 @@ const BodyBartenders = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
-    const data = request<CardT>(bartenders);
+    const data = request<CardsForBartenders[]>(bartenders, 'GET');
     data.then((res) => {
-      const { menuBartenders } = res;
-      setCardsBartenders(menuBartenders);
+      setCardsBartenders(res);
     });
   }, []);
 

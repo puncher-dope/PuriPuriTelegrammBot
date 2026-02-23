@@ -1,7 +1,7 @@
 export type CardsForWaiters = {
-  id: string;
+  id?: string;
   name: string;
-  category: string;
+  category: "wine" | "vodka" | "cognac" | "wisky" | "coffee" | "coctail" | "limonade" | undefined;
   volume: string;
   structure: string;
   comment: string;
@@ -22,9 +22,4 @@ export type CardsForBartenders = {
   category: string;
   structure: CardsForBartendersStructure[];
   technology: string
-};
-
-export type CardT = {
-  menuWaiters: CardsForWaiters[];
-  menuBartenders: CardsForBartenders[];
 };

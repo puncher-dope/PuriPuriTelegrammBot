@@ -55,3 +55,51 @@
     font-style: italic;
   }
 }
+
+
+
+
+ #categoriesToAddWaiters {
+    width: 100%;
+    padding: 12px 18px;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    font-weight: bold;
+    color: #2c1810;
+    background-color: #fef7e9;
+    border: 3px double #c0a080;
+    border-radius: 0;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23663300' stroke-width='3'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    margin-bottom: 20px;
+  }
+
+  #categoriesToAddWaiters:hover {
+    background-color: #fff2d7;
+    border-color: #8b6b4d;
+    box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  #categoriesToAddWaiters option {
+    background: #fef7e9;
+    font-family: 'Courier New', monospace;
+    padding: 10px;
+  }
+
+
+  textarea {
+    height: 100px;
+    font-weight: 600;
+    padding: 5px;
+  }
+
+#error-in-form {
+  color: red;
+}

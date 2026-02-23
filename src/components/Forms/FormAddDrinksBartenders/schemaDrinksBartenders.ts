@@ -1,5 +1,5 @@
 import { z } from 'zod'
-export const schemaDrinks = z.object({
+export const schemaDrinksBartenders = z.object({
     name: z.string().min(1, 'Название обязательно'),
     volume: z.number({
         error: 'Объём обязателен, объём должен быть числом'
@@ -12,5 +12,4 @@ export const schemaDrinks = z.object({
     description: z.string().optional(),
 })
 
-export type DrinksWaitersData = z.infer<typeof schemaDrinks>
-
+export type DrinksWaitersData = z.infer<typeof schemaDrinksBartenders>

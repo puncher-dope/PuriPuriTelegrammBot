@@ -2,22 +2,22 @@ import CardWaiters from "@/components/Waiters/CardWaiters/CardWaiters";
 import "./bodyWaiters.scss";
 import React, { useEffect, useState } from "react";
 import { request } from "@/utils/req";
-import type { CardsForWaiters, CardT } from "@/types/cardT";
+import type { CardsForWaiters } from "@/types/cardT";
 import TopLevelBody from "@/components/topLevelBody/TopLevelBody";
+import FormAddDrinksWaiters from "@/components/Forms/FormAddDrinksWaiters/FormAddDrinksWaiters";
+import { useDrinkForm } from "@/components/lib/hooks/useDrinkForm";
 
-const waiters = "http://localhost:3000/cards";
+const waiters = "http://localhost:3000/menuWaiters";
 
 const BodyWaiters = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [cardsWaiters, setCardsWaiters] = useState<CardsForWaiters[] | null>(null);
-  const [active, setActive] = useState(false)
 
   useEffect(() => {
-    const data = request<CardT>(waiters);
+    const data = request<CardsForWaiters[]>(waiters, 'GET');
     data.then((res) => {
-      const { menuWaiters } = res;
-      setCardsWaiters(menuWaiters);
+      setCardsWaiters(res);
     });
   }, []);
 
@@ -30,6 +30,7 @@ const BodyWaiters = () => {
     setSelectedCategory('');
   }
 
+  const {openForCreate, isFormOpen, close, editingDrink} = useDrinkForm()
 
   const filteredDrinks = cardsWaiters?.filter((drink) => {
     const matchCategory = selectedCategory === '' || drink.category === selectedCategory;
@@ -50,61 +51,24 @@ const BodyWaiters = () => {
         />
 
         <div className="body_cards">
-          <button onClick={() => setActive(prev => !prev)}>Добавить напиток</button>
-          {active &&
-            <div>
-              <form>
-                <label htmlFor="">Название
-                  <input type="text" name="" id="" />
-                </label>
-                <label htmlFor="">Объём
-                  <input type="number" name="" id="" />
-                </label>
-                <label htmlFor="">Категория
-                  <select
-                    name="categories"
-                    id="categories"
-                    value={selectedCategory}
-                    onChange={handleChangeCategory}
-                  >
-                    <option value="">-- Все категории --</option>
-                    <option value="wine">🍷 Вино</option>
-                    <option value="vodka">🥃 Водка</option>
-                    <option value="cognac">🥃 Коньяк</option>
-                    <option value="wisky">🥃 Виски</option>
-                    <option value="coffee">☕ Кофе</option>
-                    <option value="coctail">☕ Коктейль</option>
-                    <option value="limonade">☕ Лимонад</option>
-                  </select>
-                </label>
-                <label htmlFor="">Состав
-                  <textarea/>
-                </label>
-                <label htmlFor="">Комментарий
-                  <textarea />
-                </label>
-                <label htmlFor="">Описание
-                  <textarea/>
-                </label>
-                <button>Добавить</button>
-                <button onClick={() => setActive(prev => !prev)}>Отмена</button>
-              </form>
-            </div>}
+          <button onClick={openForCreate}>➕ Добавить напиток</button>
+          
+          {isFormOpen &&
+            <div className="active">
+              <FormAddDrinksWaiters setActive={close} initialData={editingDrink} />
+            </div>
+          }
 
           {filteredDrinks && filteredDrinks?.length > 0 ?
-            filteredDrinks.map((item) => (
+            filteredDrinks.map((drink) => (
               <CardWaiters
-                key={item.id}
-                name={item.name}
-                volume={item.volume}
-                category={item.category}
-                structure={item.structure}
-                comment={item.comment}
-                description={item.description}
+                key={drink.id}
+                drink={drink}
               />
             )) :
             <p>Ничего не найдено</p>
           }
+
         </div>
       </div>
     </>
