@@ -3,10 +3,15 @@ import { useForm, useFieldArray } from 'react-hook-form'
 import { schemaDrinksBartenders, type schemaDrinksBartendersData } from './schemaDrinksBartenders'
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { CardsForBartenders } from '@/types/cardT';
+import { request } from '@/utils/req';
+import { bartenders } from '@/lib/api/routes';
 
 type FormAddDrinksBartendersProps = {
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
     initialData: CardsForBartenders | null
+    fetchDrinks: () => Promise<void>
+    handleChange: (id: string, dataDr: CardsForBartenders) => Promise<void>
+
 }
 
 const defaultValues = {
@@ -34,12 +39,7 @@ const prepareFormData = (data: CardsForBartenders | null): schemaDrinksBartender
 
 
 
-export default function FormAddDrinksBartenders({ setActive, initialData }: FormAddDrinksBartendersProps) {
-
-
-
-
-
+export default function FormAddDrinksBartenders({ setActive, initialData, fetchDrinks, handleChange }: FormAddDrinksBartendersProps) {
 
     const { handleSubmit, register, formState: { errors }, control } = useForm<schemaDrinksBartendersData>({
         resolver: zodResolver(schemaDrinksBartenders),
@@ -51,10 +51,24 @@ export default function FormAddDrinksBartenders({ setActive, initialData }: Form
         name: 'structure'
     })
 
-    const onSubmit = (data: schemaDrinksBartendersData) => {
-        console.log(data)
-        setActive(prev => !prev)
+    const onSubmit = async (dataDr: schemaDrinksBartendersData) => {
+        try {
+            if (initialData?.id) {
+                await request<CardsForBartenders>(`${bartenders}/${initialData.id}`, 'PATCH', dataDr)
+                alert(`Напиток ${initialData.name} успешно обновлён`);
+            } else {
+                const { data } = await request<CardsForBartenders>(bartenders, 'POST', dataDr)
+                if (!data) throw new Error('Ошибка создания заказа')
+                alert(`Напиток ${data.name} успешно создан`)
+            }
+            fetchDrinks()
+            setActive(prev => !prev)
+        } catch (error) {
+            error instanceof Error ?
+                alert(error.message) : 'Неизвестная ошибка'
+        }
     }
+
 
 
     return (
@@ -112,7 +126,7 @@ export default function FormAddDrinksBartenders({ setActive, initialData }: Form
 
                 {fields.map((field, index) => (
                     <div key={field.id} className='structure-item'>
-                        <h4>Ингедиент: {index+1}</h4>
+                        <h4>Ингедиент: {index + 1}</h4>
                         <label>
                             Название
                             <input

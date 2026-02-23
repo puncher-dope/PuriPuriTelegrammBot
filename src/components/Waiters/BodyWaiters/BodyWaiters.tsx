@@ -6,19 +6,27 @@ import type { CardsForWaiters } from "@/types/cardT";
 import TopLevelBody from "@/components/topLevelBody/TopLevelBody";
 import FormAddDrinksWaiters from "@/components/Forms/FormAddDrinksWaiters/FormAddDrinksWaiters";
 import { useDrinkForm } from "@/lib/hooks/useDrinkForm";
+import { waiters } from "@/lib/api/routes";
 
-const waiters = "http://localhost:3000/menuWaiters";
+
+
 
 const BodyWaiters = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const [cardsWaiters, setCardsWaiters] = useState<CardsForWaiters[] | null>(null);
+  const [cardsWaiters, setCardsWaiters] = useState<CardsForWaiters[] | undefined>();
 
+  const fetchDrinks = async () => {
+    const {data, error} = await request<CardsForWaiters[]>(waiters, 'GET');
+      try {
+        if(error) throw new Error('Не удалось получить данные')
+        setCardsWaiters(data);
+      } catch (error) {
+        error instanceof Error ? error.message : 'Неизвестная ошибка' 
+      }
+  }
   useEffect(() => {
-    const data = request<CardsForWaiters[]>(waiters, 'GET');
-    data.then((res) => {
-      setCardsWaiters(res);
-    });
+    fetchDrinks()
   }, []);
 
   const handleChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -29,8 +37,18 @@ const BodyWaiters = () => {
     setSearchQuery(e.target.value)
     setSelectedCategory('');
   }
+  const handleDelete = async (id: string) => {
+    if (window.confirm('Вы уверены, что хотите удалить этот напиток?')) {
+      await request(`${waiters}/${id}`, 'DELETE')
+      setCardsWaiters(prev => prev?.filter(drink => drink.id !== id) || undefined);
+    }
 
-  const {openForCreate, isFormOpen, close, editingDrink} = useDrinkForm<CardsForWaiters>()
+  }
+  const handleChange = async(id: string, dataDr: CardsForWaiters) => {
+    await request<CardsForWaiters>(`${waiters}/${id}`, "PATCH", dataDr)
+  }
+
+  const { openForCreate, isFormOpen, close, editingDrink } = useDrinkForm<CardsForWaiters>()
 
   const filteredDrinks = cardsWaiters?.filter((drink) => {
     const matchCategory = selectedCategory === '' || drink.category === selectedCategory;
@@ -52,10 +70,10 @@ const BodyWaiters = () => {
 
         <div className="body_cards">
           <button onClick={openForCreate}>➕ Добавить напиток</button>
-          
+
           {isFormOpen &&
             <div className="active">
-              <FormAddDrinksWaiters setActive={close} initialData={editingDrink} />
+              <FormAddDrinksWaiters setActive={close} initialData={editingDrink} fetchDrinks={fetchDrinks}/>
             </div>
           }
 
@@ -64,6 +82,9 @@ const BodyWaiters = () => {
               <CardWaiters
                 key={drink.id}
                 drink={drink}
+                onDelete={handleDelete}
+                fetchDrinks={fetchDrinks}
+                handleChange={handleChange}
               />
             )) :
             <p>Ничего не найдено</p>

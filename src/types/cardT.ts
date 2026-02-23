@@ -1,5 +1,5 @@
 export type CardsForWaiters = {
-  id?: string;
+  id: string;
   name: string;
   category: "wine" | "vodka" | "cognac" | "wisky" | "coffee" | "coctail" | "limonade";
   volume: string;
@@ -15,7 +15,7 @@ export type CardsForBartendersStructure = {
   count: string;
 };
 export type CardsForBartenders = {
-  id?: number;
+  id: string;
   name: string;
   volume: string
   category: "wine" | "vodka" | "cognac" | "wisky" | "coffee" | "coctail" | "limonade";

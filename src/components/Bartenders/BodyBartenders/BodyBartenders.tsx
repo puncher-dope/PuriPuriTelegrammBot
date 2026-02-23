@@ -5,19 +5,27 @@ import type { CardsForBartenders } from "@/types/cardT";
 import TopLevelBody from "@/components/topLevelBody/TopLevelBody";
 import { useDrinkForm } from "@/lib/hooks/useDrinkForm";
 import FormAddDrinksBartenders from "@/components/Forms/FormAddDrinksBartenders/FormAddDrinksBartenders";
+import { bartenders } from "@/lib/api/routes";
 
-const bartenders = "http://localhost:3000/menuBartenders";
+
 
 const BodyBartenders = () => {
-  const [cardsBartenders, setCardsBartenders] = useState< CardsForBartenders[] | null>(null);
+  const [cardsBartenders, setCardsBartenders] = useState<CardsForBartenders[] | undefined>();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
+  const fetchDrinks = async() => {
+    try {
+      const { data, error } = await request<CardsForBartenders[]>(bartenders, 'GET');
+      if (error) throw new Error('Не удалось получить данные')
+      setCardsBartenders(data);
+    } catch (error) {
+      error instanceof Error ? error.message : 'Неизвестная ошибка'
+    }
+  }
+
   useEffect(() => {
-    const data = request<CardsForBartenders[]>(bartenders, 'GET');
-    data.then((res) => {
-      setCardsBartenders(res);
-    });
+    fetchDrinks()
   }, []);
 
   const handleSearchQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +36,16 @@ const BodyBartenders = () => {
     setSelectedCategory(e.target.value);
   };
 
-  const {openForCreate, isFormOpen, close, editingDrink} = useDrinkForm<CardsForBartenders>()
+
+    const handleDelete = async (id: string) => {
+      if (window.confirm('Вы уверены, что хотите удалить этот напиток?')) {
+        await request(`${bartenders}/${id}`, 'DELETE')
+        setCardsBartenders(prev => prev?.filter(drink => drink.id !== id) || undefined);
+      }
+  
+    }
+
+  const { openForCreate, isFormOpen, close, editingDrink } = useDrinkForm<CardsForBartenders>()
 
   const filteredDrinks = cardsBartenders?.filter((drink) => {
     const categoryMatch =
@@ -36,29 +53,29 @@ const BodyBartenders = () => {
 
     const searchMatch =
       drink.name.toLowerCase().includes(searchQuery.trim().toLowerCase()) ||
-      drink.structure.some(item => item.nameStructure.toLowerCase().includes(searchQuery.trim().toLowerCase()) ) 
+      drink.structure.some(item => item.nameStructure.toLowerCase().includes(searchQuery.trim().toLowerCase()))
 
 
-      return categoryMatch && searchMatch
+    return categoryMatch && searchMatch
   });
 
   return (
     <>
       <div className="body">
         <TopLevelBody
-        searchQuery={searchQuery}
-        handleSearchQuery={handleSearchQuery}
-        selectedCategory={selectedCategory}
-        handleChangeCategory={handleChangeCategory}
+          searchQuery={searchQuery}
+          handleSearchQuery={handleSearchQuery}
+          selectedCategory={selectedCategory}
+          handleChangeCategory={handleChangeCategory}
         />
 
         <div className="body_cards">
           <button onClick={openForCreate}>➕ Добавить напиток</button>
 
-          {isFormOpen && 
-          <div className="active">
-            <FormAddDrinksBartenders setActive={close} initialData={editingDrink}/>
-          </div>
+          {isFormOpen &&
+            <div className="active">
+              <FormAddDrinksBartenders setActive={close} initialData={editingDrink} fetchDrinks={fetchDrinks}/>
+            </div>
           }
 
           {filteredDrinks && filteredDrinks.length > 0 ?
@@ -66,8 +83,10 @@ const BodyBartenders = () => {
               <CardBartenders
                 key={drink.id}
                 drink={drink}
+                fetchDrinks={fetchDrinks}
+                handleDelete={handleDelete}
               />
-            )):
+            )) :
             <p>Ничего не найдено</p>
           }
         </div>

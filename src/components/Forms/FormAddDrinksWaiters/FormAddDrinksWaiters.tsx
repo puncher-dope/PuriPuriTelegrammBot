@@ -3,11 +3,14 @@ import { useForm } from 'react-hook-form'
 import { schemaDrinksWaiters, type DrinksWaitersData } from './schemaDrinksWaiters'
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { CardsForWaiters } from '@/types/cardT';
+import { request } from '@/utils/req';
+import { waiters } from '@/lib/api/routes';
 
 
 type FormAddDrinksWaitersT = {
   setActive: React.Dispatch<React.SetStateAction<boolean>>
-  initialData: CardsForWaiters | null
+  initialData: CardsForWaiters | null,
+  fetchDrinks: () => Promise<void>
 }
 
 const defaultValues = {
@@ -20,15 +23,28 @@ const defaultValues = {
 }
 
 
-const FormAddDrinksWaiters = ({ setActive, initialData }: FormAddDrinksWaitersT) => {
+const FormAddDrinksWaiters = ({ setActive, initialData, fetchDrinks }: FormAddDrinksWaitersT) => {
   const { register, handleSubmit, formState: { errors } } = useForm<DrinksWaitersData>({
     resolver: zodResolver(schemaDrinksWaiters),
     defaultValues: initialData || defaultValues
   })
 
-  const onSubmit = (data: DrinksWaitersData) => {
-
-    setActive(prev => !prev)
+  const onSubmit = async (dataDr: DrinksWaitersData) => {
+    try {
+      if (initialData?.id) {
+        await request<CardsForWaiters>(`${waiters}/${initialData.id}`, 'PATCH', dataDr)
+        alert(`Напиток ${initialData.name} успешно обновлён`);
+      } else {
+        const { data } = await request<CardsForWaiters>(waiters, 'POST', dataDr)
+        if (!data) throw new Error('Ошибка создания заказа')
+          alert(`Напиток ${data.name} успешно создан`)
+      }
+      fetchDrinks()
+      setActive(prev => !prev)
+    } catch (error) {
+      error instanceof Error ?
+        alert(error.message) : 'Неизвестная ошибка'
+    }
   }
 
   return (
