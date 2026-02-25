@@ -1,5 +1,5 @@
 export type AuthT = {
-    user: {name:string} | null
+    checkAuth: () => string | boolean
     login: (login: string, password: string) => boolean
     logout: () => void
 }

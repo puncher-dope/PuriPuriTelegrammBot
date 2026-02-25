@@ -7,8 +7,9 @@ type ProtectedRouteT = {
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteT) {
-    const { user } = useAuth()
-
+    const { checkAuth } = useAuth()
+    const user = checkAuth()
+    
     if (!user) {
         return <Navigate to={'/login'} />
     }

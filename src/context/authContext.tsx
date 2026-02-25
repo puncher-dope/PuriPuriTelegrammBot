@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext } from "react";
 import type { AuthT } from "./authTypes";
 
 //Создаем контекст
@@ -6,12 +6,12 @@ const AuthContext = createContext< AuthT | undefined>(undefined)
 
 // Провайдер, который оборачивает всё приложение
 export const AuthProvider = ({children} : React.PropsWithChildren) => {
-    const [user, setUser] = useState<{name:string} | null>(null)
+    // const [user, setUser] = useState<{name:string} | null>(null)
     
     // Функция входа
     const login = (login: string, password: string) => {
         if(login === 'kim' && password==='123'){
-            setUser({name:login})
+            sessionStorage.setItem('user', `${login}`)
             return true
         }
         return false
@@ -19,11 +19,16 @@ export const AuthProvider = ({children} : React.PropsWithChildren) => {
     
     // Функция выхода
     const logout = () => {
-        setUser(null)
+        sessionStorage.removeItem('user')
+    }
+
+    const checkAuth = () => {
+        const user = sessionStorage.getItem('user')
+        return user ? user : false
     }
 
     return (
-        <AuthContext.Provider value={{user, login, logout}}>
+        <AuthContext.Provider value={{checkAuth, login, logout}}>
             {children}
         </AuthContext.Provider>
     ) 
