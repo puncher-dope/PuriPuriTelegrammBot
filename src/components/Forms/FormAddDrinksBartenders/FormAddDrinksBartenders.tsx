@@ -9,10 +9,7 @@ import { bartenders } from '@/lib/api/routes';
 type FormAddDrinksBartendersProps = {
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
     initialData: CardsForBartenders | null
-    fetchDrinks: () => Promise<void>
-    handleChange: (id: string, dataDr: CardsForBartenders) => Promise<void>
-
-}
+    fetchDrinks: () => Promise<void>}
 
 const defaultValues = {
     name: '',
@@ -39,7 +36,7 @@ const prepareFormData = (data: CardsForBartenders | null): schemaDrinksBartender
 
 
 
-export default function FormAddDrinksBartenders({ setActive, initialData, fetchDrinks, handleChange }: FormAddDrinksBartendersProps) {
+export default function FormAddDrinksBartenders({ setActive, initialData, fetchDrinks }: FormAddDrinksBartendersProps) {
 
     const { handleSubmit, register, formState: { errors }, control } = useForm<schemaDrinksBartendersData>({
         resolver: zodResolver(schemaDrinksBartenders),
@@ -51,13 +48,15 @@ export default function FormAddDrinksBartenders({ setActive, initialData, fetchD
         name: 'structure'
     })
 
+    const token = sessionStorage.getItem('token')
+
     const onSubmit = async (dataDr: schemaDrinksBartendersData) => {
         try {
-            if (initialData?.id) {
-                await request<CardsForBartenders>(`${bartenders}/${initialData.id}`, 'PATCH', dataDr)
+            if (initialData?._id) {
+                await request<CardsForBartenders>(`${bartenders}/${initialData._id}`, 'PATCH', dataDr, token)
                 alert(`Напиток ${initialData.name} успешно обновлён`);
             } else {
-                const { data } = await request<CardsForBartenders>(bartenders, 'POST', dataDr)
+                const { data } = await request<CardsForBartenders>(bartenders, 'POST', dataDr, token)
                 if (!data) throw new Error('Ошибка создания заказа')
                 alert(`Напиток ${data.name} успешно создан`)
             }

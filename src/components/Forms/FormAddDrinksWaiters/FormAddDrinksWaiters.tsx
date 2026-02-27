@@ -22,6 +22,8 @@ const defaultValues = {
   description: ''
 }
 
+const token = sessionStorage.getItem('token')
+
 
 const FormAddDrinksWaiters = ({ setActive, initialData, fetchDrinks }: FormAddDrinksWaitersT) => {
   const { register, handleSubmit, formState: { errors } } = useForm<DrinksWaitersData>({
@@ -31,11 +33,11 @@ const FormAddDrinksWaiters = ({ setActive, initialData, fetchDrinks }: FormAddDr
 
   const onSubmit = async (dataDr: DrinksWaitersData) => {
     try {
-      if (initialData?.id) {
-        await request<CardsForWaiters>(`${waiters}/${initialData.id}`, 'PATCH', dataDr)
+      if (initialData?._id) {
+        await request<CardsForWaiters>(`${waiters}/${initialData._id}`, 'PATCH', dataDr, token)
         alert(`Напиток ${initialData.name} успешно обновлён`);
       } else {
-        const { data } = await request<CardsForWaiters>(waiters, 'POST', dataDr)
+        const { data } = await request<CardsForWaiters>(waiters, 'POST', dataDr, token)
         if (!data) throw new Error('Ошибка создания заказа')
           alert(`Напиток ${data.name} успешно создан`)
       }

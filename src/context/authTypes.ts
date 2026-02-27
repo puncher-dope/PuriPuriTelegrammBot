@@ -1,5 +1,5 @@
 export type AuthT = {
     checkAuth: () => string | boolean
-    login: (login: string, password: string) => boolean
+    login: (body:{login: string, password: string}) => Promise<boolean>
     logout: () => void
 }

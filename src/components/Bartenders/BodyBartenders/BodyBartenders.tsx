@@ -14,9 +14,10 @@ const BodyBartenders = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
+  const token = sessionStorage.getItem('token')
   const fetchDrinks = async() => {
     try {
-      const { data, error } = await request<CardsForBartenders[]>(bartenders, 'GET');
+      const { data, error } = await request<CardsForBartenders[]>(bartenders, 'GET', undefined, token);
       if (error) throw new Error('Не удалось получить данные')
       setCardsBartenders(data);
     } catch (error) {
@@ -39,8 +40,8 @@ const BodyBartenders = () => {
 
     const handleDelete = async (id: string) => {
       if (window.confirm('Вы уверены, что хотите удалить этот напиток?')) {
-        await request(`${bartenders}/${id}`, 'DELETE')
-        setCardsBartenders(prev => prev?.filter(drink => drink.id !== id) || undefined);
+        await request(`${bartenders}/${id}`, 'DELETE', undefined, token)
+        setCardsBartenders(prev => prev?.filter(drink => drink._id !== id) || undefined);
       }
   
     }
@@ -81,7 +82,7 @@ const BodyBartenders = () => {
           {filteredDrinks && filteredDrinks.length > 0 ?
             filteredDrinks.map((drink) => (
               <CardBartenders
-                key={drink.id}
+                key={drink._id}
                 drink={drink}
                 fetchDrinks={fetchDrinks}
                 handleDelete={handleDelete}

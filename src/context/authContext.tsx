@@ -1,17 +1,33 @@
 import React, { createContext, useContext } from "react";
 import type { AuthT } from "./authTypes";
+import { request } from "@/utils/req";
+import { authLogin } from "@/lib/api/routes";
 
 //Создаем контекст
 const AuthContext = createContext< AuthT | undefined>(undefined)
+type AuthLoginT ={
+    token: string
+}
+
 
 // Провайдер, который оборачивает всё приложение
 export const AuthProvider = ({children} : React.PropsWithChildren) => {
-    // const [user, setUser] = useState<{name:string} | null>(null)
     
     // Функция входа
-    const login = (login: string, password: string) => {
-        if(login === 'kim' && password==='123'){
-            sessionStorage.setItem('user', `${login}`)
+    const login = async(body:{login: string, password: string}) => {
+        const {login, password} = body
+        console.log(body)
+        const newBody = {
+            login: login.trim(),
+            password: password.trim()
+        }
+        console.log( newBody)
+
+        const {data} = await request<AuthLoginT>(authLogin, 'POST', newBody) 
+        
+        if(data && data.token){
+
+            sessionStorage.setItem('token', data?.token)
             return true
         }
         return false
@@ -19,12 +35,12 @@ export const AuthProvider = ({children} : React.PropsWithChildren) => {
     
     // Функция выхода
     const logout = () => {
-        sessionStorage.removeItem('user')
+        sessionStorage.removeItem('token')
     }
 
     const checkAuth = () => {
-        const user = sessionStorage.getItem('user')
-        return user ? user : false
+        const key = sessionStorage.getItem('token')
+        return key ? key : false
     }
 
     return (

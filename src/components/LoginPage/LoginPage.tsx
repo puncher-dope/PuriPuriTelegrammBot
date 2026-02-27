@@ -15,8 +15,8 @@ export function LoginPage() {
     const { login } = useAuth();
     const navigate = useNavigate();
 
-    const onSubmit = (data: schemaLoginPageData) => {
-        if (login(data.login, data.password)) {
+    const onSubmit = async(data: schemaLoginPageData) => {
+        if (await login(data)) {
             navigate('/');
         } else {
             alert('Неверный логин или пароль');

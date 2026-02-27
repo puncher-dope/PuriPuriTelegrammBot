@@ -7,11 +7,15 @@ import type { ApiResponseType } from "@/types/apiResponseType"
 export async function request<T>(
     url: string,
     method: 'GET' | 'PUT' | 'PATCH' | 'POST' | 'DELETE',
-    body?: unknown): Promise<ApiResponseType<T>> {
+    body?: unknown,
+    token?: string | null,
+): Promise<ApiResponseType<T>> {
     try {
         const response = await fetch(url, {
             headers: {
-                'Content-Type': 'application/json'
+                'Authorization': `Bearer ${token !== null ? token: ''}`,
+                'Content-Type': 'application/json',
+
             },
             method: method,
             // credentials:'include',

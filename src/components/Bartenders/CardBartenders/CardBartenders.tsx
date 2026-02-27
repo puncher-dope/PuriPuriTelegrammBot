@@ -48,7 +48,7 @@ const CardBartenders = ({drink, fetchDrinks, handleDelete, }: CardsForBartenders
          <blockquote>{drink.technology}</blockquote>
         }
 
-        <button onClick={() => handleDelete(drink.id)}>Удалить</button>
+        <button onClick={() => handleDelete(drink._id)}>Удалить</button>
         <button onClick={handleEditClick}>Изменить</button>
     </div>
 

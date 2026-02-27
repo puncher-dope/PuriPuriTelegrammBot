@@ -16,8 +16,10 @@ const BodyWaiters = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [cardsWaiters, setCardsWaiters] = useState<CardsForWaiters[] | undefined>();
 
+  const token = sessionStorage.getItem('token')
   const fetchDrinks = async () => {
-    const {data, error} = await request<CardsForWaiters[]>(waiters, 'GET');
+    const {data, error} = await request<CardsForWaiters[]>(waiters, 'GET', undefined, token);
+    console.log(data)
       try {
         if(error) throw new Error('Не удалось получить данные')
         setCardsWaiters(data);
@@ -39,13 +41,13 @@ const BodyWaiters = () => {
   }
   const handleDelete = async (id: string) => {
     if (window.confirm('Вы уверены, что хотите удалить этот напиток?')) {
-      await request(`${waiters}/${id}`, 'DELETE')
-      setCardsWaiters(prev => prev?.filter(drink => drink.id !== id) || undefined);
+      await request(`${waiters}/${id}`, 'DELETE', undefined, token)
+      setCardsWaiters(prev => prev?.filter(drink => drink._id !== id) || undefined);
     }
 
   }
   const handleChange = async(id: string, dataDr: CardsForWaiters) => {
-    await request<CardsForWaiters>(`${waiters}/${id}`, "PATCH", dataDr)
+    await request<CardsForWaiters>(`${waiters}/${id}`, "PATCH", dataDr, token)
   }
 
   const { openForCreate, isFormOpen, close, editingDrink } = useDrinkForm<CardsForWaiters>()
@@ -80,7 +82,7 @@ const BodyWaiters = () => {
           {filteredDrinks && filteredDrinks?.length > 0 ?
             filteredDrinks.map((drink) => (
               <CardWaiters
-                key={drink.id}
+                key={drink._id}
                 drink={drink}
                 onDelete={handleDelete}
                 fetchDrinks={fetchDrinks}

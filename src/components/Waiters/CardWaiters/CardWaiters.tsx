@@ -44,7 +44,7 @@ const CardWaiters = ({drink, onDelete, fetchDrinks} : CardWaitersProps) => {
         <p><b>Комментарий:</b> {drink.comment}</p>
         <p><b>Красочное писание:</b> {drink.description}</p>
         <button onClick={handleEditClick}>Изменить</button> 
-        <button onClick={() => onDelete(drink.id)}>Удалить</button> 
+        <button onClick={() => onDelete(drink._id)}>Удалить</button> 
     </div>
 
     </>
