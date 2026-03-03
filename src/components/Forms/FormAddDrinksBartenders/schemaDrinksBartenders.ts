@@ -3,7 +3,7 @@ import { schemaItemStructure } from './schemaItemStructure'
 
 
 export const schemaDrinksBartenders = z.object({
-    name: z.string().min(1, 'Название обязательно'),
+    name: z.string().min(1, 'Название обязательно').max(30,'Название должно быть не более 30 символов'),
     volume: z.string().min(1, 'Объём обязателен'),
     category: z.enum(['wine', 'vodka', 'cognac', 'wisky', 'coffee', 'coctail', 'limonade'], {
         error: 'Выберите категорию'

@@ -6,7 +6,6 @@ import { useAuth } from '@/context/authContext'
 const Header = () => {
   const navigate = useNavigate()
   const {logout} = useAuth()
-
   const onLogout = () => {
     logout()
     navigate('/login')

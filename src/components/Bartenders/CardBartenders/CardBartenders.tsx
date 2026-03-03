@@ -5,13 +5,12 @@ import FormAddDrinksBartenders from '@/components/Forms/FormAddDrinksBartenders/
 
 type CardsForBartendersProps = {
   drink: CardsForBartenders
-  fetchDrinks: () => Promise<void>
-  handleDelete: (id: string) => Promise<void>
+  handleDelete: (card: CardsForBartenders) => Promise<void>
 }
 
 
 
-const CardBartenders = ({drink, fetchDrinks, handleDelete, }: CardsForBartendersProps) => {
+const CardBartenders = ({drink, handleDelete}: CardsForBartendersProps) => {
   const [isEditing, setIsEditing] = useState(false)
 
   const handleEditClick = () => {
@@ -25,7 +24,7 @@ const CardBartenders = ({drink, fetchDrinks, handleDelete, }: CardsForBartenders
   if(isEditing){
     return (
       <div className='card editing-mode'>
-        <FormAddDrinksBartenders setActive={handleCancel} initialData={drink} fetchDrinks={fetchDrinks}/>
+        <FormAddDrinksBartenders setActive={handleCancel} initialData={drink}/>
       </div>
     )
   }
@@ -48,7 +47,7 @@ const CardBartenders = ({drink, fetchDrinks, handleDelete, }: CardsForBartenders
          <blockquote>{drink.technology}</blockquote>
         }
 
-        <button onClick={() => handleDelete(drink._id)}>Удалить</button>
+        <button onClick={() => handleDelete(drink)}>Удалить</button>
         <button onClick={handleEditClick}>Изменить</button>
     </div>
 

@@ -1,33 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { request } from "@/utils/req";
+import React, { useState } from "react";
 import CardBartenders from "../CardBartenders/CardBartenders";
 import type { CardsForBartenders } from "@/types/cardT";
 import TopLevelBody from "@/components/topLevelBody/TopLevelBody";
 import { useDrinkForm } from "@/lib/hooks/useDrinkForm";
 import FormAddDrinksBartenders from "@/components/Forms/FormAddDrinksBartenders/FormAddDrinksBartenders";
-import { bartenders } from "@/lib/api/routes";
+import { useDeleteBartendersCardMutation, useFetchAllBartendersMenuQuery } from "@/store/service/BartendersService";
 
 
 
 const BodyBartenders = () => {
-  const [cardsBartenders, setCardsBartenders] = useState<CardsForBartenders[] | undefined>();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-
-  const token = sessionStorage.getItem('token')
-  const fetchDrinks = async() => {
-    try {
-      const { data, error } = await request<CardsForBartenders[]>(bartenders, 'GET', undefined, token);
-      if (error) throw new Error('Не удалось получить данные')
-      setCardsBartenders(data);
-    } catch (error) {
-      error instanceof Error ? error.message : 'Неизвестная ошибка'
-    }
-  }
-
-  useEffect(() => {
-    fetchDrinks()
-  }, []);
+  const {data: cardsBartenders} = useFetchAllBartendersMenuQuery()
+  const [deleteCard, {}] = useDeleteBartendersCardMutation()
 
   const handleSearchQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -38,12 +23,10 @@ const BodyBartenders = () => {
   };
 
 
-    const handleDelete = async (id: string) => {
+    const handleDelete = async (card: CardsForBartenders) => {
       if (window.confirm('Вы уверены, что хотите удалить этот напиток?')) {
-        await request(`${bartenders}/${id}`, 'DELETE', undefined, token)
-        setCardsBartenders(prev => prev?.filter(drink => drink._id !== id) || undefined);
+        await deleteCard(card)
       }
-  
     }
 
   const { openForCreate, isFormOpen, close, editingDrink } = useDrinkForm<CardsForBartenders>()
@@ -75,7 +58,7 @@ const BodyBartenders = () => {
 
           {isFormOpen &&
             <div className="active">
-              <FormAddDrinksBartenders setActive={close} initialData={editingDrink} fetchDrinks={fetchDrinks}/>
+              <FormAddDrinksBartenders setActive={close} initialData={editingDrink}/>
             </div>
           }
 
@@ -84,7 +67,6 @@ const BodyBartenders = () => {
               <CardBartenders
                 key={drink._id}
                 drink={drink}
-                fetchDrinks={fetchDrinks}
                 handleDelete={handleDelete}
               />
             )) :

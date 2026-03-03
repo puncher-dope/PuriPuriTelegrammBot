@@ -1,12 +1,13 @@
 import CardWaiters from "@/components/Waiters/CardWaiters/CardWaiters";
 import "./bodyWaiters.scss";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { request } from "@/utils/req";
 import type { CardsForWaiters } from "@/types/cardT";
 import TopLevelBody from "@/components/topLevelBody/TopLevelBody";
 import FormAddDrinksWaiters from "@/components/Forms/FormAddDrinksWaiters/FormAddDrinksWaiters";
 import { useDrinkForm } from "@/lib/hooks/useDrinkForm";
 import { waiters } from "@/lib/api/routes";
+import { useDeleteWaitersCardMutation, useFetchAllWaitersMenuQuery } from "@/store/service/WaitersService";
 
 
 
@@ -14,39 +15,33 @@ import { waiters } from "@/lib/api/routes";
 const BodyWaiters = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const [cardsWaiters, setCardsWaiters] = useState<CardsForWaiters[] | undefined>();
+  // const [cardsWaiters, setCardsWaiters] = useState<CardsForWaiters[] | undefined>();
 
   const token = sessionStorage.getItem('token')
-  const fetchDrinks = async () => {
-    const {data, error} = await request<CardsForWaiters[]>(waiters, 'GET', undefined, token);
-    console.log(data)
-      try {
-        if(error) throw new Error('Не удалось получить данные')
-        setCardsWaiters(data);
-      } catch (error) {
-        error instanceof Error ? error.message : 'Неизвестная ошибка' 
-      }
-  }
-  useEffect(() => {
-    fetchDrinks()
-  }, []);
+
+  const { data: cardsWaiters } = useFetchAllWaitersMenuQuery()
+
+  const [deleteCard, { }] = useDeleteWaitersCardMutation()
 
   const handleChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(e.target.value);
-
   };
+
+
   const handleSearchQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value)
     setSelectedCategory('');
   }
-  const handleDelete = async (id: string) => {
-    if (window.confirm('Вы уверены, что хотите удалить этот напиток?')) {
-      await request(`${waiters}/${id}`, 'DELETE', undefined, token)
-      setCardsWaiters(prev => prev?.filter(drink => drink._id !== id) || undefined);
-    }
 
+
+  const handleDelete = async(drink: CardsForWaiters) => {
+    if (window.confirm('Вы уверены, что хотите удалить этот напиток?')) {
+      await deleteCard(drink)
+    }
+    return
   }
-  const handleChange = async(id: string, dataDr: CardsForWaiters) => {
+  
+  const handleChange = async (id: string, dataDr: CardsForWaiters) => {
     await request<CardsForWaiters>(`${waiters}/${id}`, "PATCH", dataDr, token)
   }
 
@@ -75,7 +70,7 @@ const BodyWaiters = () => {
 
           {isFormOpen &&
             <div className="active">
-              <FormAddDrinksWaiters setActive={close} initialData={editingDrink} fetchDrinks={fetchDrinks}/>
+              <FormAddDrinksWaiters setActive={close} initialData={editingDrink} />
             </div>
           }
 
@@ -85,7 +80,6 @@ const BodyWaiters = () => {
                 key={drink._id}
                 drink={drink}
                 onDelete={handleDelete}
-                fetchDrinks={fetchDrinks}
                 handleChange={handleChange}
               />
             )) :

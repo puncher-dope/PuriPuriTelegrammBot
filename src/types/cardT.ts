@@ -9,7 +9,7 @@ export type CardsForWaiters = {
 };
 
 export type CardsForBartendersStructure = {
-  _id: string;
+  _id?: string;
   nameStructure: string;
   unit: string;
   count: string;

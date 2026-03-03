@@ -3,13 +3,12 @@ import { useForm, useFieldArray } from 'react-hook-form'
 import { schemaDrinksBartenders, type schemaDrinksBartendersData } from './schemaDrinksBartenders'
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { CardsForBartenders } from '@/types/cardT';
-import { request } from '@/utils/req';
-import { bartenders } from '@/lib/api/routes';
+import { useCreateBartendersCardMutation, useUpdateBartendersCardMutation } from '@/store/service/BartendersService';
 
 type FormAddDrinksBartendersProps = {
     setActive: React.Dispatch<React.SetStateAction<boolean>>,
     initialData: CardsForBartenders | null
-    fetchDrinks: () => Promise<void>}
+}
 
 const defaultValues = {
     name: '',
@@ -36,7 +35,7 @@ const prepareFormData = (data: CardsForBartenders | null): schemaDrinksBartender
 
 
 
-export default function FormAddDrinksBartenders({ setActive, initialData, fetchDrinks }: FormAddDrinksBartendersProps) {
+export default function FormAddDrinksBartenders({ setActive, initialData }: FormAddDrinksBartendersProps) {
 
     const { handleSubmit, register, formState: { errors }, control } = useForm<schemaDrinksBartendersData>({
         resolver: zodResolver(schemaDrinksBartenders),
@@ -47,20 +46,19 @@ export default function FormAddDrinksBartenders({ setActive, initialData, fetchD
         control,
         name: 'structure'
     })
+    const [createCard] = useCreateBartendersCardMutation()
+    const [updateCard] = useUpdateBartendersCardMutation()
 
-    const token = sessionStorage.getItem('token')
 
     const onSubmit = async (dataDr: schemaDrinksBartendersData) => {
         try {
             if (initialData?._id) {
-                await request<CardsForBartenders>(`${bartenders}/${initialData._id}`, 'PATCH', dataDr, token)
+                await updateCard({_id: initialData._id, card: dataDr})
                 alert(`Напиток ${initialData.name} успешно обновлён`);
             } else {
-                const { data } = await request<CardsForBartenders>(bartenders, 'POST', dataDr, token)
-                if (!data) throw new Error('Ошибка создания заказа')
-                alert(`Напиток ${data.name} успешно создан`)
+                await createCard(dataDr)
+                alert(`Напиток ${dataDr.name} успешно создан`)
             }
-            fetchDrinks()
             setActive(prev => !prev)
         } catch (error) {
             error instanceof Error ?

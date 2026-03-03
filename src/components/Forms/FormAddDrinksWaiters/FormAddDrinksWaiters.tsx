@@ -3,14 +3,12 @@ import { useForm } from 'react-hook-form'
 import { schemaDrinksWaiters, type DrinksWaitersData } from './schemaDrinksWaiters'
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { CardsForWaiters } from '@/types/cardT';
-import { request } from '@/utils/req';
-import { waiters } from '@/lib/api/routes';
+import { useCreateWaitersCardMutation, useUpdateWaitersCardMutation } from '@/store/service/WaitersService';
 
 
 type FormAddDrinksWaitersT = {
   setActive: React.Dispatch<React.SetStateAction<boolean>>
-  initialData: CardsForWaiters | null,
-  fetchDrinks: () => Promise<void>
+  initialData: CardsForWaiters | null
 }
 
 const defaultValues = {
@@ -22,27 +20,27 @@ const defaultValues = {
   description: ''
 }
 
-const token = sessionStorage.getItem('token')
 
 
-const FormAddDrinksWaiters = ({ setActive, initialData, fetchDrinks }: FormAddDrinksWaitersT) => {
+const FormAddDrinksWaiters = ({ setActive, initialData }: FormAddDrinksWaitersT) => {
   const { register, handleSubmit, formState: { errors } } = useForm<DrinksWaitersData>({
     resolver: zodResolver(schemaDrinksWaiters),
     defaultValues: initialData || defaultValues
   })
+  const [createCard, {}] = useCreateWaitersCardMutation()
+  const [updateCard, {}] = useUpdateWaitersCardMutation()
 
   const onSubmit = async (dataDr: DrinksWaitersData) => {
     try {
       if (initialData?._id) {
-        await request<CardsForWaiters>(`${waiters}/${initialData._id}`, 'PATCH', dataDr, token)
+        await updateCard({_id:initialData._id, card: dataDr})
         alert(`Напиток ${initialData.name} успешно обновлён`);
       } else {
-        const { data } = await request<CardsForWaiters>(waiters, 'POST', dataDr, token)
-        if (!data) throw new Error('Ошибка создания заказа')
-          alert(`Напиток ${data.name} успешно создан`)
+        await createCard(dataDr)
+        alert(`Напиток ${dataDr.name} успешно создан`)
       }
-      fetchDrinks()
       setActive(prev => !prev)
+
     } catch (error) {
       error instanceof Error ?
         alert(error.message) : 'Неизвестная ошибка'

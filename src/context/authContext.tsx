@@ -1,16 +1,15 @@
-import React, { createContext, useContext } from "react";
-import type { AuthT } from "./authTypes";
-import { request } from "@/utils/req";
-import { authLogin } from "@/lib/api/routes";
+import { createContext, useContext } from "react"
+import type { AuthT } from "./authTypes"
+import { authLogin } from "@/lib/api/routes"
+import { request } from "@/utils/req"
 
 //Создаем контекст
 const AuthContext = createContext< AuthT | undefined>(undefined)
+
 type AuthLoginT ={
     token: string
 }
 
-
-// Провайдер, который оборачивает всё приложение
 export const AuthProvider = ({children} : React.PropsWithChildren) => {
     
     // Функция входа
@@ -55,4 +54,3 @@ export const useAuth = () => {
     if(!context) throw new Error('')
     return context
 }
-

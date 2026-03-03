@@ -1,4 +1,4 @@
-// import type { CardsForWaiters } from "@/types/cardT"
+
 import { useState } from "react"
 
 export const useDrinkForm = <T>() => {
