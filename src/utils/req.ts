@@ -1,6 +1,4 @@
-// type ApiResponseType<T> = {
-//     data: T
-// }
+
 
 import type { ApiResponseType } from "@/types/apiResponseType"
 
