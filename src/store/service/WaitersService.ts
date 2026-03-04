@@ -8,9 +8,7 @@ export const WaitersAPI = createApi({
     reducerPath: 'waitersAPI',
     baseQuery: fetchBaseQuery({ 
         baseUrl: 'http://localhost:5000',
-        //Это нужно что бы токен из сессинного хранилища подтянулся
        prepareHeaders: (headers) => {
-            // 👈 Получаем токен из Redux store
             const token = getToken()
             
             if (token) {

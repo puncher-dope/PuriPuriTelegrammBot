@@ -1,5 +1,6 @@
-import { useAuth } from '@/context/authContext'
-import { type ReactNode } from 'react'
+
+import { useCheckAuthQuery } from '@/store/service/AuthService'
+import {type ReactNode } from 'react'
 import { Navigate } from 'react-router'
 
 type ProtectedRouteT = {
@@ -7,10 +8,14 @@ type ProtectedRouteT = {
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteT) {
-    const { checkAuth } = useAuth()
-    const user = checkAuth()
+   const {data, isFetching} = useCheckAuthQuery()
+
     
-    if (!user) {
+    if (isFetching) {
+        return <div>Загружаемся...</div>
+    } 
+
+    if (!isFetching && !data) {
         return <Navigate to={'/login'} />
     }
 

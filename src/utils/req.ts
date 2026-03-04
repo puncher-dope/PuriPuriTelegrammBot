@@ -16,7 +16,6 @@ export async function request<T>(
 
             },
             method: method,
-            // credentials:'include',
             body: body ? JSON.stringify(body) : undefined
         })
 

@@ -7,14 +7,12 @@ import { LoginPage } from "./components/LoginPage/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import { AuthProvider } from "./context/authContext";
 
 
 function App() {
   return (
     <>
       <Provider store={store}>
-        <AuthProvider>
           <Header />
           <Routes>
             <Route path="/login" element={<LoginPage />} />
@@ -33,7 +31,6 @@ function App() {
 
           </Routes>
           <Footer />
-        </AuthProvider>
       </Provider>
     </>
   );

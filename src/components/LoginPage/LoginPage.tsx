@@ -1,10 +1,9 @@
-// import { useAuth } from '@/context/authContext';
 import { useNavigate } from 'react-router';
 import './loginPage.scss'
 import { useForm } from 'react-hook-form';
 import { schemaLoginPage, type schemaLoginPageData } from './schemaLoginPage';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAuth } from '@/context/authContext';
+import { useLoginMutation } from '@/store/service/AuthService';
 
 
 
@@ -13,7 +12,7 @@ export function LoginPage() {
     const { handleSubmit, register, formState: { errors } } = useForm<schemaLoginPageData>({
         resolver: zodResolver(schemaLoginPage)
     })
-    const { login } = useAuth();
+    const [login] = useLoginMutation();
     const navigate = useNavigate();
 
     const onSubmit = async (data: schemaLoginPageData) => {

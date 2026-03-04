@@ -4,6 +4,7 @@ import { schemaDrinksWaiters, type DrinksWaitersData } from './schemaDrinksWaite
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { CardsForWaiters } from '@/types/cardT';
 import { useCreateWaitersCardMutation, useUpdateWaitersCardMutation } from '@/store/service/WaitersService';
+import { useNavigate } from 'react-router';
 
 
 type FormAddDrinksWaitersT = {
@@ -27,18 +28,38 @@ const FormAddDrinksWaiters = ({ setActive, initialData }: FormAddDrinksWaitersT)
     resolver: zodResolver(schemaDrinksWaiters),
     defaultValues: initialData || defaultValues
   })
-  const [createCard, {}] = useCreateWaitersCardMutation()
-  const [updateCard, {}] = useUpdateWaitersCardMutation()
+  const [createCard] = useCreateWaitersCardMutation()
+  const [updateCard, { }] = useUpdateWaitersCardMutation()
+  const navigate = useNavigate()
+
+
 
   const onSubmit = async (dataDr: DrinksWaitersData) => {
     try {
+
       if (initialData?._id) {
-        await updateCard({_id:initialData._id, card: dataDr})
-        alert(`Напиток ${initialData.name} успешно обновлён`);
+        const { error } = await updateCard({ _id: initialData._id, card: dataDr })
+        if (error) {
+          alert('Ошибка создания продукта, перезайдите в аккаунт')
+          sessionStorage.removeItem('token')
+          navigate('/login')
+        } else {
+          alert(`Напиток ${dataDr.name} успешно обновлён`)
+        }
       } else {
-        await createCard(dataDr)
-        alert(`Напиток ${dataDr.name} успешно создан`)
+        const { error } = await createCard(dataDr)
+        if (error) {
+          alert('Ошибка создания продукта, перезайдите в аккаунт')
+          sessionStorage.removeItem('token')
+          navigate('/login')
+        } else {
+          alert(`Напиток ${dataDr.name} успешно создан`)
+        }
       }
+
+
+
+
       setActive(prev => !prev)
 
     } catch (error) {
