@@ -1,13 +1,13 @@
 import React from "react";
 
 type TopLevelBodyT = {
-    searchQuery: string,
-    handleSearchQuery: (e: React.ChangeEvent<HTMLInputElement>) => void
-    selectedCategory: string,
-    handleChangeCategory: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  searchQuery: string,
+  handleSearchQuery: (e: React.ChangeEvent<HTMLInputElement>) => void
+  selectedCategory: string,
+  handleChangeCategory: (e: React.ChangeEvent<HTMLSelectElement>) => void
 };
 
-const TopLevelBody = ({searchQuery, handleSearchQuery, selectedCategory, handleChangeCategory} : TopLevelBodyT) => {
+const TopLevelBody = ({ searchQuery, handleSearchQuery, selectedCategory, handleChangeCategory }: TopLevelBodyT) => {
   return (
     <>
       <h1>НАПИТКИ</h1>
@@ -32,13 +32,26 @@ const TopLevelBody = ({searchQuery, handleSearchQuery, selectedCategory, handleC
         onChange={handleChangeCategory}
       >
         <option value="">-- Все категории --</option>
-        <option value="wine">🍷 Вино</option>
+        <option value="coffee">🍷 Кофе</option>
+        <option value="tea">🥃 Чай</option>
+        <option value="warmingTea">🥃 Согревающий чай</option>
+        <option value="glintvein">🥃 Глинтвейн</option>
+        <option value="mors_uzvar">☕ Морс и Узвар</option>
+        <option value="water_juices">☕ Вода и соки</option>
+        <option value="importedLemonades">☕ Импортные лимонады</option>
+        <option value="cocktails">🍷 Коктейли</option>
+        <option value="lemonades">🥃 Лимонады</option>
+        <option value="aperitifs">🥃 Аперетивы</option>
         <option value="vodka">🥃 Водка</option>
-        <option value="cognac">🥃 Коньяк</option>
-        <option value="wisky">🥃 Виски</option>
-        <option value="coffee">☕ Кофе</option>
-        <option value="coctail">☕ Коктейль</option>
-        <option value="limonade">☕ Лимонад</option>
+        <option value="distillates">☕ Дистилляты</option>
+        <option value="gin">☕ Джин</option>
+        <option value="rum">☕ Ром</option>
+        <option value="whiskey">☕ Виски</option>
+        <option value="sangrias">☕ Сангрии</option>
+        <option value="nastoyki">☕ Настойки</option>
+        <option value="wine">☕ Вино</option>
+        <option value="tequila">☕ Текила</option>
+        <option value="cognac">☕ Коньяк</option>
       </select>
     </>
   );

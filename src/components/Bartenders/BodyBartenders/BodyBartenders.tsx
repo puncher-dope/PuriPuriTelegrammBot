@@ -11,8 +11,8 @@ import { useDeleteBartendersCardMutation, useFetchAllBartendersMenuQuery } from 
 const BodyBartenders = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const {data: cardsBartenders} = useFetchAllBartendersMenuQuery()
-  const [deleteCard, {}] = useDeleteBartendersCardMutation()
+  const { data: cardsBartenders } = useFetchAllBartendersMenuQuery()
+  const [deleteCard, { }] = useDeleteBartendersCardMutation()
 
   const handleSearchQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -23,11 +23,11 @@ const BodyBartenders = () => {
   };
 
 
-    const handleDelete = async (card: CardsForBartenders) => {
-      if (window.confirm('Вы уверены, что хотите удалить этот напиток?')) {
-        await deleteCard(card)
-      }
+  const handleDelete = async (card: CardsForBartenders) => {
+    if (window.confirm('Вы уверены, что хотите удалить этот напиток?')) {
+      await deleteCard(card)
     }
+  }
 
   const { openForCreate, isFormOpen, close, editingDrink } = useDrinkForm<CardsForBartenders>()
 
@@ -53,12 +53,12 @@ const BodyBartenders = () => {
           handleChangeCategory={handleChangeCategory}
         />
 
+        <button className="addNewCardBtn" onClick={openForCreate}>➕ Добавить напиток</button>
         <div className="body_cards">
-          <button onClick={openForCreate}>➕ Добавить напиток</button>
 
           {isFormOpen &&
             <div className="active">
-              <FormAddDrinksBartenders setActive={close} initialData={editingDrink}/>
+              <FormAddDrinksBartenders setActive={close} initialData={editingDrink} />
             </div>
           }
 

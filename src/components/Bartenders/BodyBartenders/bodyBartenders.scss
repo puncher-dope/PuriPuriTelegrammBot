@@ -1,150 +1,316 @@
-@use '../../../../variables';
-.body {
-  box-sizing: border-box;
-  width: 100%;
-  border: 2px double #c0a080;
-  margin: 0 0 5% 0;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: variables.$primary-body-color;
-  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.1);
-  position: relative;
+// /* bodyBartenders.scss и bodyWaiters.scss (одинаковые изменения для обоих) */
+// @use '../../../../variables';
 
-  &::before {
-    content: "⚘";
-    position: absolute;
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #f0e6d2;
-    padding: 0 20px;
-    font-size: 20px;
-    color: #8b4513;
-  }
+// .body {
+//   box-sizing: border-box;
+//   width: 100%;
+//   max-width: 1200px; /* Добавляем ограничение максимальной ширины */
+//   margin: 0 auto 5% auto; /* Центрируем */
+//   border: 2px double #c0a080;
+//   padding: 10px;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   background-color: variables.$primary-body-color;
+//   box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.1);
+//   position: relative;
 
-  h1 {
-    color: variables.$primary-text-color;
-    margin: 0 0 10px 0;
-    font-family: 'Courier New', monospace;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    border-bottom: 2px dashed #c0a080;
-    padding-bottom: 5px;
-    display: inline-block;
-  }
-}
+//   &::before {
+//     content: "⚘";
+//     position: absolute;
+//     top: -15px;
+//     left: 50%;
+//     transform: translateX(-50%);
+//     background-color: #f0e6d2;
+//     padding: 0 20px;
+//     font-size: 20px;
+//     color: #8b4513;
+//   }
 
-.or{
-    margin: 5px 0;
-    color: #4d2311;
-    font-weight: normal;
-}
+//   h1 {
+//     color: variables.$primary-text-color;
+//     margin: 0 0 10px 0;
+//     font-family: 'Courier New', monospace;
+//     font-size: 1.5rem;
+//     text-transform: uppercase;
+//     letter-spacing: 3px;
+//     border-bottom: 2px dashed #c0a080;
+//     padding-bottom: 5px;
+//     display: inline-block;
+//   }
 
-.body_cards {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-  position: relative;
+//   /* Медиа-запрос для планшетов */
+//   @media (min-width: 768px) {
+//     padding: 20px;
+    
+//     h1 {
+//       font-size: 2rem;
+//     }
+//   }
 
-  &::before {
-    content: "✧ ✦ ✧";
-    position: absolute;
-    top: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #c0a080;
-    font-size: 20px;
-    letter-spacing: 10px;
-  }
-}
+//   /* Медиа-запрос для ПК */
+//   @media (min-width: 1024px) {
+//     padding: 30px;
+    
+//     h1 {
+//       font-size: 2.5rem;
+//     }
+//   }
+// }
 
-label {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 400px;
-  margin: 10px 0;
-  font-family: 'Courier New', monospace;
-  font-weight: bold;
-  color: variables.$primary-text-color;
-  text-transform: uppercase;
-  font-size: 14px;
-  letter-spacing: 1px;
-  position: relative;
+// .or {
+//   margin: 5px 0;
+//   color: #4d2311;
+//   font-weight: normal;
+// }
 
-  &::after {
-    content: "⸻";
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #c0a080;
-  }
-}
+// .addNewCardBtn{
+//   width: 260px;
+//   padding: 12px 18px;
+//   font-size: 16px;
+//   font-weight: bold;
+//   color: #2c1810;
+//   background-color: #fef7e9;
+//   border: 3px solid #c0a080;
+//   border-radius: 10px;
+//   cursor: pointer;
+//   outline: none;
+//   box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
+//   appearance: none;
+//   -webkit-appearance: none;
+//   -moz-appearance: none;
+//   margin-bottom: 20px;
 
-#searchDrink {
-  width: 100%;
-  padding: 10px 20px;
-  margin-top: 10px;
-  font-family: 'Courier New', monospace;
-  font-size: 14px;
-  font-weight: 700;
-  color: variables.$primary-text-color;
-  background-color: #fff2d7;
-  border: 2px solid #c0a080;
-  outline: none;
-  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s;
+//   @media (min-width: 768px) {
+//     width: 320px;
+//     font-size: 18px;
+//   }
+// }
 
-  &:focus {
-    background-color: #ffffff;
-    border-color: #8b4513;
-    box-shadow: 7px 7px 0px rgba(139, 69, 19, 0.2);
-  }
 
-  &::placeholder {
-    color: variables.$primary-text-color;
-    font-style: italic;
-  }
-}
+// .body_cards {
+//   width: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   margin-top: 10px;
+//   position: relative;
 
-#categories {
-  width: 260px;
-  padding: 12px 18px;
-  font-family: 'Courier New', monospace;
-  font-size: 16px;
-  font-weight: bold;
-  color: #2c1810;
-  background-color: #fef7e9;
-  border: 3px double #c0a080;
-  border-radius: 0;
-  cursor: pointer;
-  outline: none;
-  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23663300' stroke-width='3'><polyline points='6 9 12 15 18 9'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 15px center;
-  margin-bottom: 20px;
-}
+//   &::before {
+//     content: "✧ ✦ ✧";
+//     position: absolute;
+//     top: -25px;
+//     left: 50%;
+//     transform: translateX(-50%);
+//     color: #c0a080;
+//     font-size: 20px;
+//     letter-spacing: 10px;
+//   }
 
-#categories:hover {
-  background-color: #fff2d7;
-  border-color: #8b6b4d;
-  box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.1);
-}
+//   /* Для ПК показываем карточки в сетке */
+//   @media (min-width: 1024px) {
+//     display: grid;
+//     grid-template-columns: repeat(2, 1fr);
+//     gap: 20px;
+//     align-items: start;
+    
+//     &::before {
+//       top: -35px;
+//       font-size: 24px;
+//     }
+//   }
+// }
 
-#categories option {
-  background: #fef7e9;
-  font-family: 'Courier New', monospace;
-  padding: 10px;
-}
+// label {
+//   display: flex;
+//   flex-direction: column;
+//   width: 100%;
+//   max-width: 400px;
+//   margin: 10px 0;
+//   font-family: 'Courier New', monospace;
+//   font-weight: bold;
+//   color: variables.$primary-text-color;
+//   text-transform: uppercase;
+//   font-size: 14px;
+//   letter-spacing: 1px;
+//   position: relative;
+
+//   &::after {
+//     content: "⸻";
+//     position: absolute;
+//     bottom: -10px;
+//     left: 50%;
+//     transform: translateX(-50%);
+//     color: #c0a080;
+//   }
+
+//   /* На ПК лейблы могут быть шире */
+//   @media (min-width: 768px) {
+//     max-width: 500px;
+//     font-size: 16px;
+//   }
+// }
+
+// #searchDrink {
+//   width: 100%;
+//   padding: 10px 20px;
+//   margin-top: 10px;
+//   font-family: 'Courier New', monospace;
+//   font-size: 14px;
+//   font-weight: 700;
+//   color: variables.$primary-text-color;
+//   background-color: #fff2d7;
+//   border: 2px solid #c0a080;
+//   outline: none;
+//   box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
+//   transition: all 0.2s;
+
+//   &:focus {
+//     background-color: #ffffff;
+//     border-color: #8b4513;
+//     box-shadow: 7px 7px 0px rgba(139, 69, 19, 0.2);
+//   }
+
+//   &::placeholder {
+//     color: variables.$primary-text-color;
+//     font-style: italic;
+//   }
+
+//   @media (min-width: 768px) {
+//     font-size: 16px;
+//     padding: 12px 24px;
+//   }
+// }
+
+// #categories {
+//   width: 260px;
+//   padding: 12px 18px;
+//   font-family: 'Courier New', monospace;
+//   font-size: 16px;
+//   font-weight: bold;
+//   color: #2c1810;
+//   background-color: #fef7e9;
+//   border: 3px double #c0a080;
+//   border-radius: 0;
+//   cursor: pointer;
+//   outline: none;
+//   box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
+//   appearance: none;
+//   -webkit-appearance: none;
+//   -moz-appearance: none;
+//   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23663300' stroke-width='3'><polyline points='6 9 12 15 18 9'/></svg>");
+//   background-repeat: no-repeat;
+//   background-position: right 15px center;
+//   margin-bottom: 20px;
+
+//   @media (min-width: 768px) {
+//     width: 320px;
+//     font-size: 18px;
+//   }
+// }
+
+// #categories:hover {
+//   background-color: #fff2d7;
+//   border-color: #8b6b4d;
+//   box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.1);
+// }
+
+// #categories option {
+//   background: #fef7e9;
+//   font-family: 'Courier New', monospace;
+//   padding: 10px;
+// }
+
+// /* Стили для модального окна формы */
+// .active {
+//   width: 100%;
+//   max-width: 600px; /* Ограничиваем ширину формы */
+//   border: 3px double #c0a080;
+//   margin: 5% 0;
+//   padding: 5px 25px;
+//   background-color: #fff2d7;
+//   box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.1);
+//   transition: all 0.2s;
+//   position: relative;
+//   z-index: 10;
+
+//   &:hover {
+//     transform: translate(-3px, -3px);
+//     box-shadow: 12px 12px 0px rgba(0, 0, 0, 0.15);
+//   }
+
+//   &::before {
+//     content: "✻";
+//     position: absolute;
+//     top: -10px;
+//     left: 20px;
+//     background-color: #fff2d7;
+//     padding: 0 10px;
+//     color: #8b4513;
+//     font-size: 20px;
+//   }
+
+//   &::after {
+//     content: "✻";
+//     position: absolute;
+//     bottom: -10px;
+//     right: 0;
+//     background-color: #fff2d7;
+//     padding: 0 10px;
+//     color: #8b4513;
+//     font-size: 20px;
+//   }
+
+//   h2 {
+//     color: #8b4513;
+//     margin: 0 0 15px 0;
+//     font-family: "Courier New", monospace;
+//     font-size: 1.8rem;
+//     text-transform: uppercase;
+//     letter-spacing: 2px;
+//     border-bottom: 1px dashed #c0a080;
+//     padding-bottom: 10px;
+//   }
+
+//   p {
+//     color: #5a3a22;
+//     line-height: 1.8;
+//     font-size: 1rem;
+//     text-align: left;
+//     padding: 0 10px;
+//     font-style: italic;
+//   }
+
+//   input {
+//     height: 35px;
+//     font-weight: 600;
+//     padding: 10px;
+//     width: 100%;
+//     box-sizing: border-box;
+//   }
+
+//   #categoriesToAddWaiters {
+//     @extend #categories;
+//     width: 100%;
+//   }
+
+//   textarea {
+//     height: 100px;
+//     font-weight: 600;
+//     padding: 5px;
+//     width: 100%;
+//     box-sizing: border-box;
+//   }
+
+//   /* На ПК форма может быть шире */
+//   @media (min-width: 1024px) {
+//     max-width: 800px;
+//     padding: 20px 40px;
+//   }
+// }
+
+// #error-in-form {
+//   color: red;
+// }

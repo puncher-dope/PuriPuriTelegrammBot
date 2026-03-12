@@ -72,12 +72,12 @@ const FormAddDrinksWaiters = ({ setActive, initialData }: FormAddDrinksWaitersT)
     <form onSubmit={handleSubmit(onSubmit)}>
 
       <label>Название
-        <input type="text"  {...register('name')} />
+        <input placeholder='Например: Какао с маршмеллоу' type="text"  {...register('name')} />
       </label>
       {errors.name && <p id='error-in-form'>{errors.name.message}</p>}
 
       <label>Объём
-        <input type="string" {...register('volume')} />
+        <input placeholder='Например: 250мл' type="string" {...register('volume')} />
       </label>
       {errors.volume && <p id='error-in-form'>{errors.volume.message}</p>}
 
@@ -87,27 +87,41 @@ const FormAddDrinksWaiters = ({ setActive, initialData }: FormAddDrinksWaitersT)
           {...register('category')}
         >
           <option value="">-- Все категории --</option>
-          <option value="wine">🍷 Вино</option>
+          <option value="coffee">🍷 Кофе</option>
+          <option value="tea">🥃 Чай</option>
+          <option value="warmingTea">🥃 Согревающий чай</option>
+          <option value="glintvein">🥃 Глинтвейн</option>
+          <option value="mors_uzvar">☕ Морс и Узвар</option>
+          <option value="water_juices">☕ Вода и соки</option>
+          <option value="importedLemonades">☕ Импортные лимонады</option>
+          <option value="cocktails">🍷 Коктейли</option>
+          <option value="lemonades">🥃 Лимонады</option>
+          <option value="aperitifs">🥃 Аперетивы</option>
           <option value="vodka">🥃 Водка</option>
-          <option value="cognac">🥃 Коньяк</option>
-          <option value="wisky">🥃 Виски</option>
-          <option value="coffee">☕ Кофе</option>
-          <option value="coctail">☕ Коктейль</option>
-          <option value="limonade">☕ Лимонад</option>
+          <option value="distillates">☕ Дистилляты</option>
+          <option value="gin">☕ Джин</option>
+          <option value="rum">☕ Ром</option>
+          <option value="whiskey">☕ Виски</option>
+          <option value="sangrias">☕ Сангрии</option>
+          <option value="nastoyki">☕ Настойки</option>
+          <option value="wine">☕ Вино</option>
+          <option value="tequila">☕ Текила</option>
+          <option value="cognac">☕ Коньяк</option>
         </select>
       </label>
       {errors.category && <p id='error-in-form'>{errors.category.message}</p>}
 
       <label>Состав
-        <textarea {...register('structure')} />
+        <textarea placeholder='Например: Молоко, какао, маршмеллоу' {...register('structure')} />
       </label>
 
       <label>Комментарий
-        <textarea {...register('comment')} />
+        
+        <textarea placeholder='Например: В составе смеси какао - сахар	' {...register('comment')} />
       </label>
 
       <label>Описание
-        <textarea {...register('description')} />
+        <textarea placeholder='Например: Сочетание аромата горячего какао и нежности воздушного зефира.' {...register('description')} />
       </label>
 
       <button type='submit'>Добавить</button>

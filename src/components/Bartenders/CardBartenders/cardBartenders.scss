@@ -1,5 +1,5 @@
 .card {
-  width: 90%;
+  width: 100%; /* Было 90% */
   max-width: 100%;
   border: 3px double #c0a080;
   margin: 5% 0;
@@ -8,7 +8,6 @@
   box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.1);
   transition: all 0.2s;
   position: relative;
-
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
@@ -50,26 +49,32 @@
     letter-spacing: 2px;
     border-bottom: 1px dashed #c0a080;
     padding-bottom: 10px;
-
-
     word-wrap: break-word;
     overflow-wrap: break-word;
     word-break: break-word;
     max-width: 100%;
+
+    @media (min-width: 768px) {
+      font-size: 2rem;
+    }
   }
 
   p {
     color: #000000;
-    line-height: 1;
+    line-height: 1.5; /* Увеличили для читаемости */
     font-size: 1rem;
     text-align: left;
     padding: 0;
     font-style: italic;
-
     word-wrap: break-word;
     overflow-wrap: break-word;
     word-break: break-word;
     max-width: 100%;
+
+    @media (min-width: 768px) {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
   }
 
   blockquote {
@@ -78,16 +83,50 @@
     font-size: 0.9em;
     font-weight: 800;
     border: 1px dashed black;
+    border-radius: 10px;
     background-color: #c19c80;
     color: black;
     z-index: 1;
-
     word-wrap: break-word;
     overflow-wrap: break-word;
     word-break: break-word;
     white-space: pre-wrap;
     max-width: 100%;
     box-sizing: border-box;
+
+    @media (min-width: 768px) {
+      font-size: 1rem;
+      padding: 15px;
+    }
   }
 
+  /* Стили для кнопок внутри карточки */
+  button {
+    margin: 5px 5px 5px 0;
+    padding: 8px 16px;
+    background-color: #fef7e9;
+    border: 2px solid #c0a080;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: #ffffff;
+      border-color: #8b4513;
+      transform: translate(-2px, -2px);
+      box-shadow: 3px 3px 0px rgba(139, 69, 19, 0.2);
+    }
+
+    @media (min-width: 768px) {
+      padding: 10px 20px;
+      font-size: 1rem;
+    }
+  }
+
+  /* Для сетки на ПК */
+  @media (min-width: 1024px) {
+    margin: 0; /* Убираем отступы, так как их заменит gap сетки */
+    height: fit-content;
+  }
 }

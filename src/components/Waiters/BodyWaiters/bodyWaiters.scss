@@ -1,10 +1,13 @@
+/* bodyBartenders.scss и bodyWaiters.scss (одинаковые изменения для обоих) */
 @use '../../../../variables';
 
 .body {
   box-sizing: border-box;
   width: 100%;
+  max-width: 1200px; /* Добавляем ограничение максимальной ширины */
+  margin: 0 auto 5% auto; /* Центрируем */
   border: 2px double #c0a080;
-  margin: 0 0 5% 0;
+  border-radius: 10px;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -29,7 +32,6 @@
   h1 {
     color: variables.$primary-text-color;
     margin: 0 0 10px 0;
-    font-family: 'Courier New', monospace;
     font-size: 1.5rem;
     text-transform: uppercase;
     letter-spacing: 3px;
@@ -37,12 +39,53 @@
     padding-bottom: 5px;
     display: inline-block;
   }
+
+  /* Медиа-запрос для планшетов */
+  @media (min-width: 768px) {
+    padding: 20px;
+    
+    h1 {
+      font-size: 2rem;
+    }
+  }
+
+  /* Медиа-запрос для ПК */
+  @media (min-width: 1024px) {
+    padding: 30px;
+    
+    h1 {
+      font-size: 2.5rem;
+    }
+  }
 }
 
 .or {
   margin: 5px 0;
   color: #4d2311;
   font-weight: normal;
+}
+
+.addNewCardBtn{
+  width: 260px;
+  padding: 12px 18px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #2c1810;
+  background-color: #fef7e9;
+  border: 3px solid #c0a080;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin-bottom: 20px;
+
+  @media (min-width: 768px) {
+    width: 320px;
+    font-size: 18px;
+  }
 }
 
 .body_cards {
@@ -63,6 +106,19 @@
     color: #c0a080;
     font-size: 20px;
     letter-spacing: 10px;
+  }
+
+  /* Для ПК показываем карточки в сетке */
+  @media (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    align-items: start;
+    
+    &::before {
+      top: -35px;
+      font-size: 24px;
+    }
   }
 }
 
@@ -87,6 +143,12 @@ label {
     left: 50%;
     transform: translateX(-50%);
     color: #c0a080;
+  }
+
+  /* На ПК лейблы могут быть шире */
+  @media (min-width: 768px) {
+    max-width: 500px;
+    font-size: 16px;
   }
 }
 
@@ -114,6 +176,11 @@ label {
     color: variables.$primary-text-color;
     font-style: italic;
   }
+
+  @media (min-width: 768px) {
+    font-size: 16px;
+    padding: 12px 24px;
+  }
 }
 
 #categories {
@@ -136,6 +203,11 @@ label {
   background-repeat: no-repeat;
   background-position: right 15px center;
   margin-bottom: 20px;
+
+  @media (min-width: 768px) {
+    width: 320px;
+    font-size: 18px;
+  }
 }
 
 #categories:hover {
@@ -150,10 +222,10 @@ label {
   padding: 10px;
 }
 
-
-
+/* Стили для модального окна формы */
 .active {
-  width: 90%;
+  width: 100%;
+  max-width: 600px; /* Ограничиваем ширину формы */
   border: 3px double #c0a080;
   margin: 5% 0;
   padding: 5px 25px;
@@ -161,6 +233,7 @@ label {
   box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.1);
   transition: all 0.2s;
   position: relative;
+  z-index: 10;
 
   &:hover {
     transform: translate(-3px, -3px);
@@ -207,14 +280,14 @@ label {
     text-align: left;
     padding: 0 10px;
     font-style: italic;
-
-
   }
 
   input {
     height: 35px;
     font-weight: 600;
     padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   #categoriesToAddWaiters {
@@ -226,8 +299,17 @@ label {
     height: 100px;
     font-weight: 600;
     padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* На ПК форма может быть шире */
+  @media (min-width: 1024px) {
+    max-width: 800px;
+    padding: 20px 40px;
   }
 }
-    #error-in-form {
-      color: red;
-    }
+
+#error-in-form {
+  color: red;
+}

@@ -33,13 +33,13 @@ const BodyWaiters = () => {
   }
 
 
-  const handleDelete = async(drink: CardsForWaiters) => {
+  const handleDelete = async (drink: CardsForWaiters) => {
     if (window.confirm('Вы уверены, что хотите удалить этот напиток?')) {
       await deleteCard(drink)
     }
     return
   }
-  
+
   const handleChange = async (id: string, dataDr: CardsForWaiters) => {
     await request<CardsForWaiters>(`${waiters}/${id}`, "PATCH", dataDr, token)
   }
@@ -64,8 +64,10 @@ const BodyWaiters = () => {
           handleChangeCategory={handleChangeCategory}
         />
 
+        <button className="addNewCardBtn" onClick={openForCreate}>➕ Добавить напиток</button>
+
+        
         <div className="body_cards">
-          <button onClick={openForCreate}>➕ Добавить напиток</button>
 
           {isFormOpen &&
             <div className="active">

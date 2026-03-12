@@ -53,7 +53,7 @@ export default function FormAddDrinksBartenders({ setActive, initialData }: Form
     const onSubmit = async (dataDr: schemaDrinksBartendersData) => {
         try {
             if (initialData?._id) {
-                await updateCard({_id: initialData._id, card: dataDr})
+                await updateCard({ _id: initialData._id, card: dataDr })
                 alert(`Напиток ${initialData.name} успешно обновлён`);
             } else {
                 await createCard(dataDr)
@@ -83,23 +83,39 @@ export default function FormAddDrinksBartenders({ setActive, initialData }: Form
 
             <label>Категория
                 <select
-                    id="categoriesToAddWaiters"
+                    className="categoriesToAddWaiters"
                     {...register('category')}
                 >
                     <option value="">-- Все категории --</option>
-                    <option value="wine">🍷 Вино</option>
+                    <option value="coffee">🍷 Кофе</option>
+                    <option value="tea">🥃 Чай</option>
+                    <option value="warmingTea">🥃 Согревающий чай</option>
+                    <option value="glintvein">🥃 Глинтвейн</option>
+                    <option value="mors_uzvar">☕ Морс и Узвар</option>
+                    <option value="water_juices">☕ Вода и соки</option>
+                    <option value="importedLemonades">☕ Импортные лимонады</option>
+                    <option value="cocktails">🍷 Коктейли</option>
+                    <option value="lemonades">🥃 Лимонады</option>
+                    <option value="aperitifs">🥃 Аперетивы</option>
                     <option value="vodka">🥃 Водка</option>
-                    <option value="cognac">🥃 Коньяк</option>
-                    <option value="wisky">🥃 Виски</option>
-                    <option value="coffee">☕ Кофе</option>
-                    <option value="coctail">☕ Коктейль</option>
-                    <option value="limonade">☕ Лимонад</option>
+                    <option value="distillates">☕ Дистилляты</option>
+                    <option value="gin">☕ Джин</option>
+                    <option value="rum">☕ Ром</option>
+                    <option value="whiskey">☕ Виски</option>
+                    <option value="sangrias">☕ Сангрии</option>
+                    <option value="nastoyki">☕ Настойки</option>
+                    <option value="wine">☕ Вино</option>
+                    <option value="tequila">☕ Текила</option>
+                    <option value="cognac">☕ Коньяк</option>
+                    <option value="pf">☕ Полуфабрикаты</option>
                 </select>
             </label>
             {errors.category && <p id='error-in-form'>{errors.category.message}</p>}
 
             <label>Отдача
-                <select {...register('dishes')}>
+                <select
+                    className="categoriesToAddWaiters"
+                    {...register('dishes')}>
                     <option value="Хайбол">Хайбол</option>
                     <option value="Мини-Хайбол">Мини-Хайбол</option>
                     <option value="Рокс">Рокс</option>
@@ -114,6 +130,9 @@ export default function FormAddDrinksBartenders({ setActive, initialData }: Form
                     <option value="Айриш">Айриш</option>
                     <option value="Шале">Шале</option>
                     <option value="Рюмка">Рюмка</option>
+                    <option value="Графин">Графин</option>
+                    <option value="Чайник">Чайник</option>
+                    <option value="Полуфабрикаты">☕ Полуфабрикаты</option>
                 </select>
             </label>
             {errors.dishes && <p id='error-in-form'>{errors.dishes.message}</p>}
