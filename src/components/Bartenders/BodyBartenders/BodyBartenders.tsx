@@ -8,11 +8,13 @@ import { useDeleteBartendersCardMutation, useFetchAllBartendersMenuQuery } from 
 
 
 
+
 const BodyBartenders = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const { data: cardsBartenders } = useFetchAllBartendersMenuQuery()
   const [deleteCard, { }] = useDeleteBartendersCardMutation()
+
 
   const handleSearchQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);

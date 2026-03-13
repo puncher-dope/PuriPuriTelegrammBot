@@ -128,7 +128,7 @@
 
   /* Для сетки на ПК */
   @media (min-width: 1024px) {
-    margin: 0; /* Убираем отступы, так как их заменит gap сетки */
-    height: fit-content;
+    height: 100% !important;
+    margin: 0; 
   }
 }

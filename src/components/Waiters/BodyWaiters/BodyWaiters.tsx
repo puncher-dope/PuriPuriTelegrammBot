@@ -12,9 +12,12 @@ import { useDeleteWaitersCardMutation, useFetchAllWaitersMenuQuery } from "@/sto
 
 
 
+
+
 const BodyWaiters = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+
 
   const token = sessionStorage.getItem('token')
 

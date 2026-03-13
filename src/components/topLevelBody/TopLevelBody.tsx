@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router";
 
 type TopLevelBodyT = {
   searchQuery: string,
@@ -8,9 +9,11 @@ type TopLevelBodyT = {
 };
 
 const TopLevelBody = ({ searchQuery, handleSearchQuery, selectedCategory, handleChangeCategory }: TopLevelBodyT) => {
+  const location = useLocation()
+  const employee = location.pathname === '/bartenders' ? `барменов` : 'официантов'
   return (
     <>
-      <h1>НАПИТКИ</h1>
+      <h1>НАПИТКИ {employee}</h1>
 
       <label htmlFor="searchDrink">
         НАЙДИ НАПИТОК
