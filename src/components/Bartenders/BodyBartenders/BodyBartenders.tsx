@@ -5,6 +5,9 @@ import TopLevelBody from "@/components/topLevelBody/TopLevelBody";
 import { useDrinkForm } from "@/lib/hooks/useDrinkForm";
 import FormAddDrinksBartenders from "@/components/Forms/FormAddDrinksBartenders/FormAddDrinksBartenders";
 import { useDeleteBartendersCardMutation, useFetchAllBartendersMenuQuery } from "@/store/service/BartendersService";
+import './bodyBartenders.scss'
+import { CardErrorFallback } from "@/components/Waiters/BodyWaiters/BodyWaiters";
+import ErrorBoundary from "@/components/ErrorBoundary/ErrorBoundary";
 
 
 
@@ -47,7 +50,7 @@ const BodyBartenders = () => {
 
   return (
     <>
-      <div className="body">
+      <div className="body-bartenders">
         <TopLevelBody
           searchQuery={searchQuery}
           handleSearchQuery={handleSearchQuery}
@@ -56,7 +59,7 @@ const BodyBartenders = () => {
         />
 
         <button className="addNewCardBtn" onClick={openForCreate}>➕ Добавить напиток</button>
-        <div className="body_cards">
+        <div className="body-cards-bartenders">
 
           {isFormOpen &&
             <div className="active">
@@ -66,11 +69,14 @@ const BodyBartenders = () => {
 
           {filteredDrinks && filteredDrinks.length > 0 ?
             filteredDrinks.map((drink) => (
-              <CardBartenders
-                key={drink._id}
-                drink={drink}
-                handleDelete={handleDelete}
-              />
+              <ErrorBoundary fallback={<CardErrorFallback />}>
+                <CardBartenders
+                  key={drink._id}
+                  drink={drink}
+                  handleDelete={handleDelete}
+                />
+                
+              </ErrorBoundary>
             )) :
             <p>Ничего не найдено</p>
           }

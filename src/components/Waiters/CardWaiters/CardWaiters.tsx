@@ -25,7 +25,7 @@ const CardWaiters = ({ drink, onDelete }: CardWaitersProps) => {
 
   if (isEditing) {
     return (
-      <div className="card editing-mode">
+      <div className="card-waiters editing-mode">
         <FormAddDrinksWaiters
           setActive={handleCancel}
           initialData={drink}
@@ -36,15 +36,19 @@ const CardWaiters = ({ drink, onDelete }: CardWaitersProps) => {
 
   return (
     <>
-      <div className="card">
-        <h2>{drink.name}</h2>
-        <p><b>Категория:</b> {drink.category}</p>
-        <p><b>Объём:</b> {drink.volume}</p>
-        <p><b>Состав:</b> {drink.structure}</p>
-        <p><b>Комментарий:</b> {drink.comment}</p>
-        <p><b>Красочное писание:</b> {drink.description}</p>
-        <button onClick={handleEditClick}>Изменить</button>
-        <button onClick={() => onDelete(drink)}>Удалить</button>
+      <div className="card-waiters">
+        <div className='card-waiters_description'>
+          <h2>{drink.name}</h2>
+          <p><b>Категория:</b> {drink.category}</p>
+          <p><b>Объём:</b> {drink.volume}</p>
+          <p><b>Состав:</b> {drink.structure}</p>
+          <p><b>Комментарий:</b> {drink.comment}</p>
+          <p><b>Красочное писание:</b> {drink.description}</p>
+        </div>
+        <div className='card-waiters_groupBtn'>
+          <button onClick={handleEditClick}>Изменить</button>
+          <button onClick={() => onDelete(drink)}>Удалить</button>
+        </div>
       </div>
 
     </>

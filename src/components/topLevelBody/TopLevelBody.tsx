@@ -15,24 +15,15 @@ const TopLevelBody = ({ searchQuery, handleSearchQuery, selectedCategory, handle
     <>
       <h1>НАПИТКИ {employee}</h1>
 
-      <label htmlFor="searchDrink">
-        НАЙДИ НАПИТОК
-        <input
-          id="searchDrink"
-          placeholder="Начните поиск..."
-          type="text"
-          value={searchQuery}
-          onChange={handleSearchQuery}
-        />
-        <span className="or">или</span>
-      </label>
 
-      <label htmlFor="categories">ВЫБЕРИ КАТЕГОРИЮ</label>
+
+      <label htmlFor="categories_drinks">ВЫБЕРИ КАТЕГОРИЮ</label>
       <select
         name="categories"
-        id="categories"
+        id="categories_drinks"
         value={selectedCategory}
         onChange={handleChangeCategory}
+        size={1}
       >
         <option value="">-- Все категории --</option>
         <option value="coffee">🍷 Кофе</option>
@@ -56,6 +47,18 @@ const TopLevelBody = ({ searchQuery, handleSearchQuery, selectedCategory, handle
         <option value="tequila">☕ Текила</option>
         <option value="cognac">☕ Коньяк</option>
       </select>
+
+      <span className="or">или</span>
+      <label htmlFor="searchDrink">
+        НАЙДИ НАПИТОК
+        <input
+          id="searchDrink"
+          placeholder="Начните поиск..."
+          type="text"
+          value={searchQuery}
+          onChange={handleSearchQuery}
+        />
+      </label>
     </>
   );
 };

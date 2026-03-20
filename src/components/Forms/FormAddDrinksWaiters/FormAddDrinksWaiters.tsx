@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import type { CardsForWaiters } from '@/types/cardT';
 import { useCreateWaitersCardMutation, useUpdateWaitersCardMutation } from '@/store/service/WaitersService';
 import { useNavigate } from 'react-router';
+import './formAddDrinksWaiters.scss'
 
 
 type FormAddDrinksWaitersT = {
@@ -69,7 +70,7 @@ const FormAddDrinksWaiters = ({ setActive, initialData }: FormAddDrinksWaitersT)
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className='formWaiters' onSubmit={handleSubmit(onSubmit)}>
 
       <label>Название
         <input placeholder='Например: Какао с маршмеллоу' type="text"  {...register('name')} />
@@ -121,7 +122,7 @@ const FormAddDrinksWaiters = ({ setActive, initialData }: FormAddDrinksWaitersT)
       </label>
 
       <label>Описание
-        <textarea placeholder='Например: Сочетание аромата горячего какао и нежности воздушного зефира.' {...register('description')} />
+        <textarea className='textareaWaiters' placeholder='Например: Сочетание аромата горячего какао и нежности воздушного зефира.' {...register('description')} />
       </label>
 
       <button type='submit'>Добавить</button>

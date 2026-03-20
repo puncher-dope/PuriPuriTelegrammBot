@@ -1,0 +1,39 @@
+.structure-item{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0 0 15px 0;
+    background-color: #c19c80;
+
+
+    h4{
+        margin: 0;
+    }
+    label{
+        margin-bottom: 0;
+    }
+
+    button{
+        margin: 5px 0;
+    }
+}
+
+.formBartenders{
+    input{
+        font-size: 16px;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 5px;
+    }
+    select, textarea{
+        @extend input
+    }
+
+    ::placeholder{
+        font-size: 16px;
+    }
+
+    .textareaBartenders{
+        height: 100px;
+    }
+}

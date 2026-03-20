@@ -8,7 +8,6 @@ export const AuthAPI = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:5000/auth',
         prepareHeaders: (headers) => {
-            // 👈 Получаем токен из Redux store
             const token = getToken()
             if (token) {
                 headers.set('Authorization', `Bearer ${token}`);

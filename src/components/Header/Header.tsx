@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router'
 import './header.scss'
 import { useLogoutMutation } from '@/store/service/AuthService'
-// import { useAuth } from '@/context/authContext'
 
 
 const Header = () => {

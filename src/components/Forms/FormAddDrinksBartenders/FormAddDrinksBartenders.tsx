@@ -1,4 +1,4 @@
-import './formBrtenders.scss'
+import './formBartenders.scss'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { schemaDrinksBartenders, type schemaDrinksBartendersData } from './schemaDrinksBartenders'
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -69,7 +69,7 @@ export default function FormAddDrinksBartenders({ setActive, initialData }: Form
 
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className='formBartenders' onSubmit={handleSubmit(onSubmit)}>
 
             <label>Название
                 <input type="text"  {...register('name')} />
@@ -181,7 +181,7 @@ export default function FormAddDrinksBartenders({ setActive, initialData }: Form
             </button>
 
             <label>Технология приготовления
-                <textarea {...register('technology')} />
+                <textarea className='textareaBartenders' {...register('technology')} />
             </label>
 
             <button type='submit'>Добавить</button>

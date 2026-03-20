@@ -8,10 +8,16 @@ import FormAddDrinksWaiters from "@/components/Forms/FormAddDrinksWaiters/FormAd
 import { useDrinkForm } from "@/lib/hooks/useDrinkForm";
 import { waiters } from "@/lib/api/routes";
 import { useDeleteWaitersCardMutation, useFetchAllWaitersMenuQuery } from "@/store/service/WaitersService";
+import ErrorBoundary from "@/components/ErrorBoundary/ErrorBoundary";
 
 
 
-
+export const CardErrorFallback = () => (
+  <div className="card-bartenders" style={{ border: '2px solid red' }}>
+    <h2>❌ Ошибка загрузки карточки</h2>
+    <p>Не удалось отобразить напиток</p>
+  </div>
+);
 
 
 const BodyWaiters = () => {
@@ -59,7 +65,7 @@ const BodyWaiters = () => {
 
   return (
     <>
-      <div className="body">
+      <div className="body-waiters">
         <TopLevelBody
           searchQuery={searchQuery}
           handleSearchQuery={handleSearchQuery}
@@ -69,23 +75,24 @@ const BodyWaiters = () => {
 
         <button className="addNewCardBtn" onClick={openForCreate}>➕ Добавить напиток</button>
 
-        
-        <div className="body_cards">
+
+        <div className="body-cards-waiters">
 
           {isFormOpen &&
             <div className="active">
               <FormAddDrinksWaiters setActive={close} initialData={editingDrink} />
             </div>
           }
-
           {filteredDrinks && filteredDrinks?.length > 0 ?
             filteredDrinks.map((drink) => (
-              <CardWaiters
-                key={drink._id}
-                drink={drink}
-                onDelete={handleDelete}
-                handleChange={handleChange}
-              />
+              <ErrorBoundary fallback={<CardErrorFallback />}>
+                <CardWaiters
+                  key={drink._id}
+                  drink={drink}
+                  onDelete={handleDelete}
+                  handleChange={handleChange}
+                />
+              </ErrorBoundary>
             )) :
             <p>Ничего не найдено</p>
           }

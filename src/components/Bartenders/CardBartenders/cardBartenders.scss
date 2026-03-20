@@ -1,7 +1,9 @@
-.card {
-  width: 100%; /* Было 90% */
+.card-bartenders {
+  width: 100%;
+  height: 100%;
   max-width: 100%;
   border: 3px double #c0a080;
+  border-radius: 10px;
   margin: 5% 0;
   padding: 15px;
   background-color: #fff2d7;
@@ -12,7 +14,14 @@
   overflow-wrap: break-word;
   word-break: break-word;
   box-sizing: border-box;
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .card-bartenders.editing-mode {
+    background-color: #a09c92;
+  }
+
 
   &:hover {
     transform: translate(-3px, -3px);
@@ -62,7 +71,8 @@
 
   p {
     color: #000000;
-    line-height: 1.5; /* Увеличили для читаемости */
+    line-height: 1.5;
+    /* Увеличили для читаемости */
     font-size: 1rem;
     text-align: left;
     padding: 0;
@@ -107,6 +117,7 @@
     padding: 8px 16px;
     background-color: #fef7e9;
     border: 2px solid #c0a080;
+    border-radius: 10px;
     cursor: pointer;
     font-family: 'Courier New', monospace;
     font-weight: bold;
@@ -125,9 +136,7 @@
     }
   }
 
-  /* Для сетки на ПК */
   @media (min-width: 1024px) {
-    margin: 0; /* Убираем отступы, так как их заменит gap сетки */
-    height: fit-content;
+    margin: 0
   }
 }

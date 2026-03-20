@@ -1,5 +1,5 @@
-.card {
-  width: 100%; /* Было 90% */
+.card-waiters {
+  width: 100%;
   max-width: 100%;
   border: 3px double #c0a080;
   border-radius: 10px;
@@ -13,6 +13,13 @@
   overflow-wrap: break-word;
   word-break: break-word;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .card-waiters.editing-mode {
+    background-color: #a09c92;
+  }
 
   &:hover {
     transform: translate(-3px, -3px);
@@ -62,7 +69,8 @@
 
   p {
     color: #000000;
-    line-height: 1.5; /* Увеличили для читаемости */
+    line-height: 1.5;
+    /* Увеличили для читаемости */
     font-size: 1rem;
     text-align: left;
     padding: 0;
@@ -129,6 +137,6 @@
   /* Для сетки на ПК */
   @media (min-width: 1024px) {
     height: 100% !important;
-    margin: 0; 
+    margin: 0;
   }
 }

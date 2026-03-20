@@ -1,0 +1,20 @@
+
+.formWaiters{
+    input{
+        font-size: 16px;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 5px;
+    }
+    select, textarea{
+        @extend input
+    }
+
+    ::placeholder{
+        font-size: 16px;
+    }
+
+    .textareaWaiters{
+        height: 100px;
+    }
+}

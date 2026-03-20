@@ -8,7 +8,6 @@ export const BartendersAPI = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:5000',
         prepareHeaders: (headers) => {
-            // 👈 Получаем токен из Redux store
             const token = getToken()
 
             if (token) {

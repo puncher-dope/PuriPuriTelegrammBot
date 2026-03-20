@@ -7,7 +7,6 @@ import { useLoginMutation } from '@/store/service/AuthService';
 
 
 
-// Страница входа
 export function LoginPage() {
     const { handleSubmit, register, formState: { errors } } = useForm<schemaLoginPageData>({
         resolver: zodResolver(schemaLoginPage)

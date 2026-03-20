@@ -1,7 +1,7 @@
 /* bodyBartenders.scss и bodyWaiters.scss (одинаковые изменения для обоих) */
 @use '../../../../variables';
 
-.body {
+.body-waiters {
   box-sizing: border-box;
   width: 100%;
   max-width: 1200px; /* Добавляем ограничение максимальной ширины */
@@ -60,7 +60,7 @@
 }
 
 .or {
-  margin: 5px 0;
+  margin: 0;
   color: #4d2311;
   font-weight: normal;
 }
@@ -88,7 +88,7 @@
   }
 }
 
-.body_cards {
+.body-cards-waiters {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -155,13 +155,13 @@ label {
 #searchDrink {
   width: 100%;
   padding: 10px 20px;
-  margin-top: 10px;
   font-family: 'Courier New', monospace;
   font-size: 14px;
   font-weight: 700;
   color: variables.$primary-text-color;
   background-color: #fff2d7;
   border: 2px solid #c0a080;
+  border-radius: 10px;
   outline: none;
   box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
   transition: all 0.2s;
@@ -183,7 +183,7 @@ label {
   }
 }
 
-#categories {
+#categories_drinks {
   width: 260px;
   padding: 12px 18px;
   font-family: 'Courier New', monospace;
@@ -192,7 +192,7 @@ label {
   color: #2c1810;
   background-color: #fef7e9;
   border: 3px double #c0a080;
-  border-radius: 0;
+  border-radius: 10px;
   cursor: pointer;
   outline: none;
   box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
@@ -202,7 +202,9 @@ label {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23663300' stroke-width='3'><polyline points='6 9 12 15 18 9'/></svg>");
   background-repeat: no-repeat;
   background-position: right 15px center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+
+  
 
   @media (min-width: 768px) {
     width: 320px;
@@ -210,13 +212,13 @@ label {
   }
 }
 
-#categories:hover {
+#categories_drinks:hover {
   background-color: #fff2d7;
   border-color: #8b6b4d;
   box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.1);
 }
 
-#categories option {
+#categories_drinks option {
   background: #fef7e9;
   font-family: 'Courier New', monospace;
   padding: 10px;
@@ -291,7 +293,7 @@ label {
   }
 
   #categoriesToAddWaiters {
-    @extend #categories;
+    @extend #categories_drinks;
     width: 100%;
   }
 
